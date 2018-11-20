@@ -15,6 +15,8 @@
 		A222A63921A3B228009537E5 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A222A63821A3B228009537E5 /* Location.swift */; };
 		A222A63B21A3B322009537E5 /* LocationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A222A63A21A3B322009537E5 /* LocationList.swift */; };
 		A222A63F21A3C2EA009537E5 /* PropertyKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A222A63E21A3C2EA009537E5 /* PropertyKeys.swift */; };
+		A222A64121A3CD6E009537E5 /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A222A64021A3CD6E009537E5 /* ForecastViewController.swift */; };
+		A222A64321A3CFA4009537E5 /* WeatherForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A222A64221A3CFA4009537E5 /* WeatherForecast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		A222A63821A3B228009537E5 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		A222A63A21A3B322009537E5 /* LocationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationList.swift; sourceTree = "<group>"; };
 		A222A63E21A3C2EA009537E5 /* PropertyKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyKeys.swift; sourceTree = "<group>"; };
+		A222A64021A3CD6E009537E5 /* ForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
+		A222A64221A3CFA4009537E5 /* WeatherForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,7 @@
 			children = (
 				A222A63821A3B228009537E5 /* Location.swift */,
 				A222A63A21A3B322009537E5 /* LocationList.swift */,
+				A222A64221A3CFA4009537E5 /* WeatherForecast.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -85,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				A222A62321A2792B009537E5 /* LocationViewController.swift */,
+				A222A64021A3CD6E009537E5 /* ForecastViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -185,10 +191,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A222A62421A2792B009537E5 /* LocationViewController.swift in Sources */,
+				A222A64321A3CFA4009537E5 /* WeatherForecast.swift in Sources */,
 				A222A63921A3B228009537E5 /* Location.swift in Sources */,
 				A222A63F21A3C2EA009537E5 /* PropertyKeys.swift in Sources */,
 				A222A63B21A3B322009537E5 /* LocationList.swift in Sources */,
 				A222A62221A2792B009537E5 /* AppDelegate.swift in Sources */,
+				A222A64121A3CD6E009537E5 /* ForecastViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
