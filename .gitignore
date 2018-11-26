@@ -6,6 +6,10 @@
 build/
 DerivedData/
 
+## Key
+SkyForecast/darksky.apikey
+
+
 ## Various settings
 *.pbxuser
 !default.pbxuser

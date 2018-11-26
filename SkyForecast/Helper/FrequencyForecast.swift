@@ -8,18 +8,14 @@
 
 import Foundation
 
-struct WeatherForecast {
-    let frequency: Frequency
-    
-    enum Frequency: String, CaseIterable {
+enum FrequencyForecast: String, CaseIterable, Codable {
         case currently, hourly, daily
-    }
-    
-    static func forecastTitle(forFrequency frequency: Frequency) -> String {
-        switch frequency {
+        
+        static func forecastTitle(forFrequency frequency: FrequencyForecast) -> String {
+            switch frequency {
             case .currently: return PropertyKeys.forecastCurrently
             case .hourly: return PropertyKeys.forecastHourly
             case .daily: return PropertyKeys.forecastDaily
+            }
         }
-    }
 }

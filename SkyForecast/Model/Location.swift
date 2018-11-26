@@ -8,9 +8,14 @@
 
 import Foundation
 
-struct Location {
+struct Location: Codable {
     let locationName: String
     let locationLatitude: Double
     let locationLongitude: Double
 
+    init(locationName: String = "", locationLatitude: Double = 0.0, locationLongitude: Double = 0.0) {
+        self.locationName = locationName
+        self.locationLatitude = locationLatitude
+        self.locationLongitude = locationLongitude
+    }
 }

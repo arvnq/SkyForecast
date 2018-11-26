@@ -16,6 +16,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        do {
+            if let url = Bundle.main.url(forResource: "darksky.apikey", withExtension: nil) {
+                let key = try? String(contentsOf: url, encoding: .utf8).trimmingCharacters(in: .whitespacesAndNewlines)
+                Api.key = key ?? ""
+            }
+            
+        }
+        
+        //if forecast is not found, still return true
+        guard let forecast = ForecastController.shared.loadForecast() else { return true }
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        
+        let initialNaviController: UINavigationController = mainStoryboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
+        
+        if forecast.isFavourite {
+            
+            let forecastVC: UIViewController = mainStoryboard.instantiateViewController(withIdentifier: PropertyKeys.sbIdForecastVC) as! ForecastViewController
+            
+            (forecastVC as! ForecastViewController).forecast = forecast
+            
+            initialNaviController.viewControllers = [forecastVC]
+            
+            self.window?.rootViewController = initialNaviController
+        } else {
+
+            let locationVC: UIViewController = mainStoryboard.instantiateViewController(withIdentifier: PropertyKeys.sbIdLocationListVC) as! LocationListViewController
+            
+            initialNaviController.viewControllers = [locationVC]
+            
+            self.window?.rootViewController = initialNaviController
+        }
+        
+        
+        self.window?.makeKeyAndVisible()
+        
         return true
     }
 

@@ -9,6 +9,12 @@
 import Foundation
 
 struct PropertyKeys {
+    
+    static let baseURL = "https://api.darksky.net/forecast/"
+    
+    static let sbIdLocationListVC = "LocationListViewController"
+    static let sbIdForecastVC = "ForecastViewController"
+    
     static let locationCellIdentifier = "LocationCellID"
     static let locationSelectionTitle = "Select a Location"
     
@@ -17,4 +23,8 @@ struct PropertyKeys {
     static let forecastDaily = "7-Day Forecast"
     static let forecastCellIdentifier = "ForecastCellID"
     static let forecastSelectionTitle = "Select a Forecast"
+    
+    static let segueSelectForecast = "selectForecastSegue"
+    static let segueShowForecast = "showForecastSegue"
+    
 }
