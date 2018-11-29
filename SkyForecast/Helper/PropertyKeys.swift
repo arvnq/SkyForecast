@@ -13,6 +13,7 @@ struct PropertyKeys {
     static let baseURL = "https://api.darksky.net/forecast/"
     
     static let sbIdLocationListVC = "LocationListViewController"
+    static let sbIdForecastListVC = "ForecastListViewController"
     static let sbIdForecastVC = "ForecastViewController"
     
     static let locationCellIdentifier = "LocationCellID"

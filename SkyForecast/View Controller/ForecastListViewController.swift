@@ -56,6 +56,8 @@ class ForecastListViewController: UIViewController {
     
     //use later
     @IBAction func unwindToForecast(_ segue: UIStoryboardSegue) {
+        let sourceVC = segue.source as! ForecastViewController
+        self.location = sourceVC.forecast?.location
         print("ForecastListView!!!")
     }
     

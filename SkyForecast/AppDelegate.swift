@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var forecast: Forecast?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -28,28 +28,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //if forecast is not found, still return true
         guard let forecast = ForecastController.shared.loadForecast() else { return true }
         
-        self.window = UIWindow(frame: UIScreen.main.bounds)
+        //no need to instantiate a window as we have a navigation controller already setup in storyboard
+        //if we are going to implement this though, we need to assign a rootViewController because rootVC is nil
+        //self.window = UIWindow(frame: UIScreen.main.bounds)
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
         
-        let initialNaviController: UINavigationController = mainStoryboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
+        //let initialNaviController: UINavigationController = mainStoryboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
+        let initialNaviController = self.window!.rootViewController as! UINavigationController
 
         if forecast.isFavourite {
 
+            //add all VCs in the navigation stack, and make the forecastVC the last one to make it top of stack
+            
             let forecastVC: UIViewController = mainStoryboard.instantiateViewController(withIdentifier: PropertyKeys.sbIdForecastVC) as! ForecastViewController
-
-            (forecastVC as! ForecastViewController).forecast = forecast
-
-            initialNaviController.viewControllers = [forecastVC]
-
-            self.window?.rootViewController = initialNaviController
-        } else {
 
             let locationVC: UIViewController = mainStoryboard.instantiateViewController(withIdentifier: PropertyKeys.sbIdLocationListVC) as! LocationListViewController
 
-            initialNaviController.viewControllers = [locationVC]
-
-            self.window?.rootViewController = initialNaviController
+            let forecastFrequencyVC: UIViewController = mainStoryboard.instantiateViewController(withIdentifier: PropertyKeys.sbIdForecastListVC) as! ForecastListViewController
+            
+            (forecastVC as! ForecastViewController).forecast = forecast
+            ForecastController.shared.faveForecast = forecast
+            
+            initialNaviController.setViewControllers([locationVC, forecastFrequencyVC, forecastVC], animated: true)
+            //initialNaviController.pushViewController(forecastVC, animated: true)
+            //self.window?.rootViewController = initialNaviController
         }
         
         //self.window?.rootViewController = RootViewController()
