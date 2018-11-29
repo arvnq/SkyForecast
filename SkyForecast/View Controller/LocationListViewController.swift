@@ -13,11 +13,17 @@ class LocationListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var locations: LocationList
+    var locationList: LocationList
     
     //required if we're going to define a non-optional var, in this case, locations
+    init() {
+        locationList = LocationList()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    //dependency injection
     required init?(coder aDecoder: NSCoder) {
-        locations = LocationList()
+        locationList = LocationList()
         super.init(coder: aDecoder)
     }
     
@@ -35,7 +41,8 @@ class LocationListViewController: UIViewController {
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
     }
-
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == PropertyKeys.segueSelectForecast {
             guard let destinationVC = segue.destination as? ForecastListViewController,
@@ -43,20 +50,21 @@ class LocationListViewController: UIViewController {
                 let indexPath = tableView.indexPath(for: cell)  else { return }
             
             tableView.deselectRow(at: indexPath, animated: true)
-            destinationVC.location = locations.chosenLocations[indexPath.row]
+            destinationVC.location = locationList.locations[indexPath.row]
             
         }
     }
     
+    
+    
     @IBAction func unwindToLocation(_ segue: UIStoryboardSegue) {
-        let sourceVC = segue.source as! ForecastViewController
+        //let sourceVC = segue.source as! ForecastViewController
+        //guard let forecast = sourceVC.forecast else { return }
         
-        guard let forecast = sourceVC.forecast else { return }
+        //navigationController?.popViewController(animated: true)
+        //ForecastController.shared.saveForecast(forecast)
         
-        
-        navigationController?.popViewController(animated: true)
-        
-            ForecastController.shared.saveForecast(forecast)
+        print("LocationListView!!!")
        
     }
 
@@ -64,12 +72,12 @@ class LocationListViewController: UIViewController {
 
 extension LocationListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return locations.chosenLocations.count
+        return locationList.locations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PropertyKeys.locationCellIdentifier, for: indexPath)
-        cell.textLabel?.text = locations.chosenLocations[indexPath.row].locationName
+        cell.textLabel?.text = locationList.locations[indexPath.row].locationName
         
         
         return cell
@@ -77,27 +85,3 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     
     
 }
-
-//
-//extension LocationListViewController: ForecastViewControllerDelegate {
-//    func forecastViewController(_ forecastViewController: ForecastViewController, didUnwindToLocation forecast: Forecast?) {
-//
-//        guard let forecast = forecast else {
-//            return
-//        }
-//        
-//        navigationController?.popViewController(animated: true)
-//        if forecast.isFavourite {
-//            ForecastController.shared.saveForecast(forecast)
-//        } else {
-//            ForecastController.shared.saveForecast(nil)
-//        }
-//    }
-//    
-//    func forecastViewController(_ forecastViewController: ForecastViewController, didUnwindToForecast forecast: Forecast?) {
-//        //do nothing
-//    }
-//    
-//    
-//}
-

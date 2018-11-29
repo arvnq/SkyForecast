@@ -204,9 +204,10 @@
                         <viewLayoutGuide key="safeArea" id="Xti-Tj-8Ij"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="ldj-Ro-ksY">
-                        <barButtonItem key="leftBarButtonItem" title="Select Forecast" id="24d-ny-1Bm">
+                        <barButtonItem key="leftBarButtonItem" title="Forecast" id="qCu-4B-76o">
                             <connections>
-                                <action selector="unwindToForecast:" destination="Suy-wG-JFR" id="0O6-T6-OpC"/>
+                                <action selector="unwindToForecast" destination="Suy-wG-JFR" id="11G-cU-RPm"/>
+                                <segue destination="7ri-kD-oog" kind="unwind" identifier="unwindToForecast" unwindAction="unwindToForecast:" id="P5b-Sw-HIw"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Favourite" id="nZh-wK-zKd">

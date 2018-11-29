@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var forecast: Forecast?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -33,26 +33,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         let initialNaviController: UINavigationController = mainStoryboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
-        
+
         if forecast.isFavourite {
-            
+
             let forecastVC: UIViewController = mainStoryboard.instantiateViewController(withIdentifier: PropertyKeys.sbIdForecastVC) as! ForecastViewController
-            
+
             (forecastVC as! ForecastViewController).forecast = forecast
-            
+
             initialNaviController.viewControllers = [forecastVC]
-            
+
             self.window?.rootViewController = initialNaviController
         } else {
 
             let locationVC: UIViewController = mainStoryboard.instantiateViewController(withIdentifier: PropertyKeys.sbIdLocationListVC) as! LocationListViewController
-            
+
             initialNaviController.viewControllers = [locationVC]
-            
+
             self.window?.rootViewController = initialNaviController
         }
         
-        
+        //self.window?.rootViewController = RootViewController()
         self.window?.makeKeyAndVisible()
         
         return true
@@ -83,3 +83,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+extension AppDelegate {
+    static var shared: AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+    
+    var rootViewController: RootViewController {
+        return window?.rootViewController as! RootViewController
+    }
+}

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct ForecastController {
     
@@ -14,10 +15,13 @@ struct ForecastController {
     let key: String
     let baseURL: URL
     
+    
     private init() {
         self.key = Api.key
         self.baseURL = Api.baseURL
+        
     }
+    
     
     func fetchForecast(forLocation location: Location, completion: @escaping (CompleteForecast?)->Void) {
         

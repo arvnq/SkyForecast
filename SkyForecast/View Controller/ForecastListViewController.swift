@@ -14,7 +14,6 @@ class ForecastListViewController: UIViewController {
     
     var location: Location?
     var forecast: Forecast?
-    var completeForecast: CompleteForecast?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,8 +21,6 @@ class ForecastListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        //fetch the forecast once we know the location
-        fetchForecast()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,43 +31,30 @@ class ForecastListViewController: UIViewController {
     }
     
     
-    func fetchForecast() {
-        guard let location = location else { return }
-        
-        ForecastController.shared.fetchForecast(forLocation: location) { (forecastResponse) in
-            if let forecastResponse = forecastResponse {
-                DispatchQueue.main.async {
-                    self.completeForecast = forecastResponse
-                }
-                
-            }
-        }
-        
-        
-    }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destinationVC = segue.destination as? ForecastViewController,
             let indexPath = tableView.indexPathForSelectedRow,
-            let completeForecast = completeForecast,
             let location = location else { return }
         
         tableView.deselectRow(at: indexPath, animated: true)
         
         let forecastFrequency = FrequencyForecast.allCases[indexPath.row]
-        self.forecast = Forecast(location: location, forecastFrequency: forecastFrequency, completeForecast: completeForecast, isFavourite: false)
+        self.forecast = Forecast(location: location, forecastFrequency: forecastFrequency, completeForecast: nil, isFavourite: false)
         
         destinationVC.forecast = forecast
-        destinationVC.delegate = self
+        //destinationVC.delegate = self
         
     }
     
+    //use later
     @IBAction func unwindToForecast(_ segue: UIStoryboardSegue) {
-        print("Forecast")
+        print("ForecastListView!!!")
     }
     
 }
+
+
 
 extension ForecastListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -88,18 +72,20 @@ extension ForecastListViewController: UITableViewDelegate, UITableViewDataSource
     
 }
 
-extension ForecastListViewController: ForecastViewControllerDelegate {
-    func forecastViewController(_ forecastViewController: ForecastViewController, didUnwindToLocation forecast: Forecast?) {
-        //do nothing
-    }
-    
-    func forecastViewController(_ forecastViewController: ForecastViewController, didUnwindToForecast forecast: Forecast?) {
-        guard let forecast = forecast else {  return }
+//extension ForecastListViewController: ForecastViewControllerDelegate {
+//    func forecastViewController(_ forecastViewController: ForecastViewController, didUnwindToLocation forecast: Forecast?) {
+//        //do nothing
+//    }
+//
+//    func forecastViewController(_ forecastViewController: ForecastViewController, didUnwindToForecast forecast: Forecast?) {
+//        guard let forecast = forecast else {  return }
+//
+//        navigationController?.popViewController(animated: true)
+//        //ForecastController.shared.saveForecast(forecast)
+//        print("ForecastListView!!!")
+//
+//    }
+//
+//
+//}
 
-        navigationController?.popViewController(animated: true)
-        ForecastController.shared.saveForecast(forecast)
-
-    }
-    
-    
-}

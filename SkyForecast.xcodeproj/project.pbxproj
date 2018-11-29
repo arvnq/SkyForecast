@@ -25,6 +25,8 @@
 		A28A132A21A5198900414890 /* CurrentDataForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28A132921A5198900414890 /* CurrentDataForecast.swift */; };
 		A28A132E21A51E7F00414890 /* ForecastIntermediary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28A132D21A51E7F00414890 /* ForecastIntermediary.swift */; };
 		A28A133021A57D9200414890 /* URL+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28A132F21A57D9200414890 /* URL+Helper.swift */; };
+		A2E09A1121AC208E0095034F /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E09A1021AC208E0095034F /* RootViewController.swift */; };
+		A2E09A1321AC23B60095034F /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E09A1221AC23B60095034F /* SplashViewController.swift */; };
 		A2F83BBD21A62A730011323A /* DataForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F83BBC21A62A730011323A /* DataForecast.swift */; };
 		A2F83BBF21A68A3E0011323A /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F83BBE21A68A3E0011323A /* Forecast.swift */; };
 /* End PBXBuildFile section */
@@ -50,6 +52,8 @@
 		A28A132921A5198900414890 /* CurrentDataForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDataForecast.swift; sourceTree = "<group>"; };
 		A28A132D21A51E7F00414890 /* ForecastIntermediary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastIntermediary.swift; sourceTree = "<group>"; };
 		A28A132F21A57D9200414890 /* URL+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Helper.swift"; sourceTree = "<group>"; };
+		A2E09A1021AC208E0095034F /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		A2E09A1221AC23B60095034F /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		A2F83BBC21A62A730011323A /* DataForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataForecast.swift; sourceTree = "<group>"; };
 		A2F83BBE21A68A3E0011323A /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,6 +118,7 @@
 		A222A63421A27DE2009537E5 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				A2E09A1221AC23B60095034F /* SplashViewController.swift */,
 				A222A62321A2792B009537E5 /* LocationListViewController.swift */,
 				A222A64021A3CD6E009537E5 /* ForecastListViewController.swift */,
 				A216B88821A597C200D41727 /* ForecastViewController.swift */,
@@ -125,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				A28A132321A45CEC00414890 /* ForecastController.swift */,
+				A2E09A1021AC208E0095034F /* RootViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -230,7 +236,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2F83BBF21A68A3E0011323A /* Forecast.swift in Sources */,
+				A2E09A1121AC208E0095034F /* RootViewController.swift in Sources */,
 				A222A62421A2792B009537E5 /* LocationListViewController.swift in Sources */,
+				A2E09A1321AC23B60095034F /* SplashViewController.swift in Sources */,
 				A28A132A21A5198900414890 /* CurrentDataForecast.swift in Sources */,
 				A28A132E21A51E7F00414890 /* ForecastIntermediary.swift in Sources */,
 				A222A64321A3CFA4009537E5 /* FrequencyForecast.swift in Sources */,
