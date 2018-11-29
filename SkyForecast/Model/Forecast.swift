@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Forecast: Codable {
+struct Forecast: Equatable, Codable {
     var location: Location
     var forecastFrequency: FrequencyForecast?
     var completeForecast: CompleteForecast?
@@ -17,4 +17,9 @@ struct Forecast: Codable {
     mutating func toggleFavourite() {
         isFavourite = !isFavourite
     }
+    
+    static func ==(lhs: Forecast, rhs: Forecast) -> Bool {
+        return lhs.location == rhs.location && lhs.forecastFrequency == rhs.forecastFrequency
+    }
+    
 }

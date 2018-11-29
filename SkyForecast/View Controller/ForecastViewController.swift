@@ -20,6 +20,7 @@ class ForecastViewController: UIViewController {
     @IBOutlet weak var summary: UILabel!
     @IBOutlet weak var windBearing: UILabel!
     @IBOutlet weak var windSpeed: UILabel!
+    @IBOutlet weak var faveButton: UIBarButtonItem!
     
     var forecast: Forecast?
     
@@ -48,8 +49,9 @@ class ForecastViewController: UIViewController {
         
         //updateBarButton()
         
-        guard let completeForecast = forecast?.completeForecast,
-            let forecastFrequency = forecast?.forecastFrequency else { return }
+        guard let forecast = forecast,
+            let completeForecast = forecast.completeForecast,
+            let forecastFrequency = forecast.forecastFrequency else { return }
         
         navigationItem.title = FrequencyForecast.forecastTitle(forFrequency: forecastFrequency)
         locationName.text = completeForecast.timezone
@@ -58,6 +60,7 @@ class ForecastViewController: UIViewController {
         windBearing.text = String(completeForecast.currently.windBearing)
         windSpeed.text = String(completeForecast.currently.windSpeed)
         
+        faveButton.title = forecast.isFavourite ? "Unfavourite" : "Favourite"
     }
     
 //    func updateBarButton() {
@@ -87,7 +90,8 @@ class ForecastViewController: UIViewController {
     
     
     @IBAction func favouriteTapped(_ sender: Any) {
-       self.forecast?.toggleFavourite()
+        self.forecast?.toggleFavourite()
+        ForecastController.shared.faveForecast = forecast
         ForecastController.shared.saveForecast(forecast)
         print("test")
     }

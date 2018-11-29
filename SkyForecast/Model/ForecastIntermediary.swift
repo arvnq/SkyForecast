@@ -20,4 +20,6 @@ struct DailyForecast: Codable {
     let summary: String
     let icon: String
     let data: [DailyDataForecast]
+    
+    
 }

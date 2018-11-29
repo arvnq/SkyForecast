@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Location: Codable {
+struct Location: Equatable, Codable {
     let locationName: String
     let locationLatitude: Double
     let locationLongitude: Double
@@ -18,4 +18,5 @@ struct Location: Codable {
         self.locationLatitude = locationLatitude
         self.locationLongitude = locationLongitude
     }
+    
 }

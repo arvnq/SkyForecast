@@ -9,7 +9,7 @@
 import Foundation
 
 struct LocationList {
-    var chosenLocations: [Location]
+    var locations: [Location]
     
     init() {
         let sydney = Location(locationName: "Sydney", locationLatitude: -33.865, locationLongitude: 151.2094)
@@ -33,6 +33,6 @@ struct LocationList {
         let auckland = Location(locationName: "Auckland", locationLatitude: -36.848461, locationLongitude: 174.763336)
         let dubai = Location(locationName: "Dubai", locationLatitude: 25.204849, locationLongitude: 55.270782)
         
-        chosenLocations = [sydney, melbourne, singapore, manila, tokyo, munich, geneva, sacramento, newyork, london, barcelona, paris, brussels, buenosaires, stPetersburg, toronto, johannesburg, beijing, auckland, dubai]
+        locations = [sydney, melbourne, singapore, manila, tokyo, munich, geneva, sacramento, newyork, london, barcelona, paris, brussels, buenosaires, stPetersburg, toronto, johannesburg, beijing, auckland, dubai]
     }
 }

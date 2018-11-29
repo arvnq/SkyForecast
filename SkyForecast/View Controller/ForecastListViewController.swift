@@ -14,6 +14,7 @@ class ForecastListViewController: UIViewController {
     
     var location: Location?
     var forecast: Forecast?
+    var faveForecast: Forecast?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,8 +42,14 @@ class ForecastListViewController: UIViewController {
         
         let forecastFrequency = FrequencyForecast.allCases[indexPath.row]
         self.forecast = Forecast(location: location, forecastFrequency: forecastFrequency, completeForecast: nil, isFavourite: false)
+        self.faveForecast = ForecastController.shared.faveForecast
         
-        destinationVC.forecast = forecast
+        if let faveForecast = faveForecast {
+            destinationVC.forecast = faveForecast == forecast ? faveForecast : forecast
+        } else {
+            destinationVC.forecast = forecast
+        }
+        
         //destinationVC.delegate = self
         
     }

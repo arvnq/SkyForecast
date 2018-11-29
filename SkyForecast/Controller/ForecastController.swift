@@ -9,12 +9,13 @@
 import Foundation
 import UIKit
 
-struct ForecastController {
+class ForecastController {
     
     static let shared = ForecastController()
     let key: String
     let baseURL: URL
     
+    var faveForecast: Forecast?
     
     private init() {
         self.key = Api.key

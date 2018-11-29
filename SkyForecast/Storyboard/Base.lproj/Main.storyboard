@@ -210,7 +210,7 @@
                                 <segue destination="7ri-kD-oog" kind="unwind" identifier="unwindToForecast" unwindAction="unwindToForecast:" id="P5b-Sw-HIw"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Favourite" id="nZh-wK-zKd">
+                        <barButtonItem key="rightBarButtonItem" title="button" id="nZh-wK-zKd">
                             <connections>
                                 <action selector="favouriteTapped:" destination="Suy-wG-JFR" id="1HE-lu-gpa"/>
                             </connections>
@@ -218,6 +218,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="currentTemperature" destination="cIP-Jk-fSx" id="WI6-Tb-PTy"/>
+                        <outlet property="faveButton" destination="nZh-wK-zKd" id="blc-Pd-deD"/>
                         <outlet property="locationName" destination="aAF-8D-OIs" id="pdE-ID-vHG"/>
                         <outlet property="summary" destination="1Se-3Z-NjL" id="Drd-TV-mXA"/>
                         <outlet property="windBearing" destination="8ZK-Oq-59F" id="a0G-rZ-MKu"/>
