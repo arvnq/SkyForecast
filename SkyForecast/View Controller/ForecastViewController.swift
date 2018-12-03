@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import WebKit
 //protocol ForecastViewControllerDelegate: class {
 //    func forecastViewController(_ forecastViewController: ForecastViewController, didUnwindToLocation forecast: Forecast? )
 //    func forecastViewController(_ forecastViewController: ForecastViewController, didUnwindToForecast forecast: Forecast? )
@@ -21,8 +21,11 @@ class ForecastViewController: UIViewController {
     @IBOutlet weak var windBearing: UILabel!
     @IBOutlet weak var windSpeed: UILabel!
     @IBOutlet weak var faveButton: UIBarButtonItem!
+    @IBOutlet weak var forecastIcon: WKWebView!
+    
     
     var forecast: Forecast?
+    var icon: String?
     
     //weak var delegate: ForecastViewControllerDelegate?
     
@@ -30,6 +33,7 @@ class ForecastViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        forecastIcon.navigationDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,8 +63,8 @@ class ForecastViewController: UIViewController {
         summary.text = completeForecast.currently.summary
         windBearing.text = String(completeForecast.currently.windBearing)
         windSpeed.text = String(completeForecast.currently.windSpeed)
-        
         faveButton.title = forecast.isFavourite ? "Unfavourite" : "Favourite"
+        loadForecastIcon()
     }
     
 //    func updateBarButton() {
@@ -132,5 +136,34 @@ extension ForecastViewController {
     func dismissAlertLoader() {
         //alertLoader.view.removeFromSuperview()
         alertLoader.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ForecastViewController: WKNavigationDelegate {
+    func loadForecastIcon() {
+        do {
+            guard let filePath = Bundle.main.path(forResource: "skycons", ofType: "html") else { return }
+            let contents = try String(contentsOfFile: filePath)
+            let baseUrl = URL(fileURLWithPath: filePath)
+            
+            forecastIcon.loadHTMLString(contents, baseURL: baseUrl)
+            
+        } catch {
+            print("HTML File Error")
+        }
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        
+        guard let icon = forecast?.completeForecast?.currently.icon else { return }
+        let iconToDisplay = icon.replacingOccurrences(of: "-", with: "_").uppercased()
+        
+        let jsIconLoader = "var skycons = new Skycons({'color':'red'});" +
+                            "skycons.set('skycon', Skycons.\(iconToDisplay) );" +
+                            "skycons.play();"
+        
+        forecastIcon.evaluateJavaScript(jsIconLoader) { (any, error) in
+            print("success!")
+        }
     }
 }

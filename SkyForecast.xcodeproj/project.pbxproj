@@ -27,6 +27,8 @@
 		A28A133021A57D9200414890 /* URL+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28A132F21A57D9200414890 /* URL+Helper.swift */; };
 		A2E09A1121AC208E0095034F /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E09A1021AC208E0095034F /* RootViewController.swift */; };
 		A2E09A1321AC23B60095034F /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E09A1221AC23B60095034F /* SplashViewController.swift */; };
+		A2E09A1A21B559EC0095034F /* skycons.js in Resources */ = {isa = PBXBuildFile; fileRef = A2E09A1921B559EC0095034F /* skycons.js */; };
+		A2E09A1C21B55A130095034F /* skycons.html in Resources */ = {isa = PBXBuildFile; fileRef = A2E09A1B21B55A130095034F /* skycons.html */; };
 		A2F83BBD21A62A730011323A /* DataForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F83BBC21A62A730011323A /* DataForecast.swift */; };
 		A2F83BBF21A68A3E0011323A /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F83BBE21A68A3E0011323A /* Forecast.swift */; };
 /* End PBXBuildFile section */
@@ -54,6 +56,8 @@
 		A28A132F21A57D9200414890 /* URL+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Helper.swift"; sourceTree = "<group>"; };
 		A2E09A1021AC208E0095034F /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		A2E09A1221AC23B60095034F /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		A2E09A1921B559EC0095034F /* skycons.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = skycons.js; sourceTree = "<group>"; };
+		A2E09A1B21B55A130095034F /* skycons.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = skycons.html; sourceTree = "<group>"; };
 		A2F83BBC21A62A730011323A /* DataForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataForecast.swift; sourceTree = "<group>"; };
 		A2F83BBE21A68A3E0011323A /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,6 +100,7 @@
 				A2F83BBB21A6297D0011323A /* View */,
 				A222A63421A27DE2009537E5 /* View Controller */,
 				A222A63321A27DDC009537E5 /* Model */,
+				A2E09A1821B559B90095034F /* Resources */,
 				A222A62821A2792D009537E5 /* Assets.xcassets */,
 				A222A62D21A2792D009537E5 /* Info.plist */,
 			);
@@ -154,6 +159,15 @@
 				A222A64221A3CFA4009537E5 /* FrequencyForecast.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		A2E09A1821B559B90095034F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A2E09A1B21B55A130095034F /* skycons.html */,
+				A2E09A1921B559EC0095034F /* skycons.js */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		A2F83BBB21A6297D0011323A /* View */ = {
@@ -221,8 +235,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2E09A1A21B559EC0095034F /* skycons.js in Resources */,
 				A28A132621A504F900414890 /* darksky.apikey in Resources */,
 				A222A62C21A2792D009537E5 /* LaunchScreen.storyboard in Resources */,
+				A2E09A1C21B55A130095034F /* skycons.html in Resources */,
 				A222A62921A2792D009537E5 /* Assets.xcassets in Resources */,
 				A222A62721A2792B009537E5 /* Main.storyboard in Resources */,
 			);
