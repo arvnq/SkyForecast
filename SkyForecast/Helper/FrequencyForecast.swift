@@ -13,9 +13,9 @@ enum FrequencyForecast: String, CaseIterable, Codable {
         
         static func forecastTitle(forFrequency frequency: FrequencyForecast) -> String {
             switch frequency {
-            case .currently: return PropertyKeys.forecastCurrently
-            case .hourly: return PropertyKeys.forecastHourly
-            case .daily: return PropertyKeys.forecastDaily
+                case .currently: return PropertyKeys.forecastCurrently
+                case .hourly: return PropertyKeys.forecastHourly
+                case .daily: return PropertyKeys.forecastDaily
             }
         }
 }

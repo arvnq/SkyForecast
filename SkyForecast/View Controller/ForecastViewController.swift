@@ -8,21 +8,28 @@
 
 import UIKit
 import WebKit
-//protocol ForecastViewControllerDelegate: class {
-//    func forecastViewController(_ forecastViewController: ForecastViewController, didUnwindToLocation forecast: Forecast? )
-//    func forecastViewController(_ forecastViewController: ForecastViewController, didUnwindToForecast forecast: Forecast? )
-//}
 
 class ForecastViewController: UIViewController {
 
+    
+    @IBOutlet weak var currentForecastStackView: UIStackView!
     @IBOutlet weak var locationName: UILabel!
     @IBOutlet weak var currentTemperature: UILabel!
     @IBOutlet weak var summary: UILabel!
     @IBOutlet weak var windBearing: UILabel!
     @IBOutlet weak var windSpeed: UILabel!
-    @IBOutlet weak var faveButton: UIBarButtonItem!
     @IBOutlet weak var forecastIcon: WKWebView!
     
+    @IBOutlet weak var wholeDayForecastStackView: UIStackView!
+    @IBOutlet weak var wdLocationName: UILabel!
+    @IBOutlet weak var wdSummary: UILabel!
+    @IBOutlet weak var wdHighTemperature: UILabel!
+    @IBOutlet weak var wdLowTemperature: UILabel!
+    @IBOutlet weak var wdWindBearing: UILabel!
+    @IBOutlet weak var wdWindSpeed: UILabel!
+    @IBOutlet weak var wdForecastIcon: WKWebView!
+    
+    @IBOutlet weak var faveButton: UIBarButtonItem!
     
     var forecast: Forecast?
     var icon: String?
@@ -34,10 +41,14 @@ class ForecastViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         forecastIcon.navigationDelegate = self
+        wdForecastIcon.navigationDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        currentForecastStackView.isHidden = true
+        wholeDayForecastStackView.isHidden = true
         
         guard let forecast = forecast else { return }
         
@@ -50,28 +61,48 @@ class ForecastViewController: UIViewController {
     }
     
     func updateUI() {
-        
-        //updateBarButton()
-        
         guard let forecast = forecast,
             let completeForecast = forecast.completeForecast,
             let forecastFrequency = forecast.forecastFrequency else { return }
         
         navigationItem.title = FrequencyForecast.forecastTitle(forFrequency: forecastFrequency)
-        locationName.text = completeForecast.timezone
-        currentTemperature.text = String(completeForecast.currently.temperature)
-        summary.text = completeForecast.currently.summary
-        windBearing.text = String(completeForecast.currently.windBearing)
-        windSpeed.text = String(completeForecast.currently.windSpeed)
+        
+        switch(forecastFrequency) {
+            case .currently: fillCurrentForecast(on: forecast.location, using: completeForecast.currently)
+            case .hourly: fillWholeDayForecast(on: forecast.location, using: completeForecast.daily.data.first!)
+            case .daily: fillWholeDayForecast(on: forecast.location, using: completeForecast.daily.data.first!)
+        }
+        
+        
+        
         faveButton.title = forecast.isFavourite ? "Unfavourite" : "Favourite"
-        loadForecastIcon()
+        
     }
     
-//    func updateBarButton() {
-//        let selectForecastBarButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(unwindToForecast))
-//
-//        navigationItem.setLeftBarButton(selectForecastBarButton, animated: true)
-//    }
+    func fillCurrentForecast(on location: Location, using currentData: CurrentDataForecast) {
+        currentForecastStackView.isHidden = false
+        locationName.text = location.locationName
+        currentTemperature.text = String(currentData.temperature)
+        summary.text = currentData.summary
+        windBearing.text = String(currentData.windBearing)
+        windSpeed.text = String(currentData.windSpeed)
+        loadForecastIcon(using: forecastIcon)
+    }
+    
+    func fillWholeDayForecast(on location: Location, using wholeDayData: DailyDataForecast) {
+        wholeDayForecastStackView.isHidden = false
+        wdLocationName.text = location.locationName
+        wdSummary.text = wholeDayData.summary
+        wdHighTemperature.text = String(wholeDayData.temperatureHigh)
+        wdLowTemperature.text = String(wholeDayData.temperatureLow)
+        wdWindBearing.text = String(wholeDayData.windBearing)
+        wdWindSpeed.text = String(wholeDayData.windSpeed)
+        loadForecastIcon(using: wdForecastIcon)
+    }
+    
+    func fillWholeWeekForecast(on location: Location, using currentData: CurrentDataForecast) {
+        
+    }
     
     func fetchForecast() {
         guard let forecast = forecast else { return }
@@ -80,9 +111,8 @@ class ForecastViewController: UIViewController {
             if let forecastResponse = forecastResponse { //inside the background thread
                     self.forecast?.completeForecast = forecastResponse
                 
-                // once api call has finished, dismiss the alert and updateUI in main thread
-                // since we are still in the background. Execution happens after a second
-                // since dismiss sometimes isn't called, hence need to delay dismissal
+                // once api call has finished, dismiss the alert and updateUI in main thread bec we are still in the background.
+                // Execution happens after a second since dismiss sometimes isn't called, hence need to delay dismissal
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.dismissAlertLoader()
                     self.updateUI()
@@ -101,18 +131,11 @@ class ForecastViewController: UIViewController {
     }
     
     @IBAction func unwindToLocation(_ sender: Any) {
-        //ForecastController.shared.saveForecast(forecast)
         performSegue(withIdentifier: "unwindToLocation", sender: nil)
-        
-       // AppDelegate.shared.rootViewController.showLocationListView()
     }
     
     @IBAction func unwindToForecast() {
-        //ForecastController.shared.saveForecast(forecast)
         performSegue(withIdentifier: "unwindToForecast", sender: nil)
-        //delegate?.forecastViewController(self, didUnwindToForecast: forecast)
-        
-       // AppDelegate.shared.rootViewController.showForecastListView()
     }
     
 }
@@ -140,7 +163,8 @@ extension ForecastViewController {
 }
 
 extension ForecastViewController: WKNavigationDelegate {
-    func loadForecastIcon() {
+    //load the html responsible for displaying icon canvas
+    func loadForecastIcon(using forecastIcon: WKWebView) {
         do {
             guard let filePath = Bundle.main.path(forResource: "skycons", ofType: "html") else { return }
             let contents = try String(contentsOfFile: filePath)
@@ -153,6 +177,7 @@ extension ForecastViewController: WKNavigationDelegate {
         }
     }
     
+    //evaluate script and pass the current forecast icon from api
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         
         guard let icon = forecast?.completeForecast?.currently.icon else { return }
@@ -162,7 +187,7 @@ extension ForecastViewController: WKNavigationDelegate {
                             "skycons.set('skycon', Skycons.\(iconToDisplay) );" +
                             "skycons.play();"
         
-        forecastIcon.evaluateJavaScript(jsIconLoader) { (any, error) in
+        webView.evaluateJavaScript(jsIconLoader) { (any, error) in
             print("success!")
         }
     }
