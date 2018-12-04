@@ -25,6 +25,7 @@
 		A28A132A21A5198900414890 /* CurrentDataForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28A132921A5198900414890 /* CurrentDataForecast.swift */; };
 		A28A132E21A51E7F00414890 /* ForecastIntermediary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28A132D21A51E7F00414890 /* ForecastIntermediary.swift */; };
 		A28A133021A57D9200414890 /* URL+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28A132F21A57D9200414890 /* URL+Helper.swift */; };
+		A28A48CD21B6404300BEB813 /* WeeklyForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28A48CC21B6404300BEB813 /* WeeklyForecastTableViewCell.swift */; };
 		A2E09A1121AC208E0095034F /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E09A1021AC208E0095034F /* RootViewController.swift */; };
 		A2E09A1321AC23B60095034F /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E09A1221AC23B60095034F /* SplashViewController.swift */; };
 		A2E09A1A21B559EC0095034F /* skycons.js in Resources */ = {isa = PBXBuildFile; fileRef = A2E09A1921B559EC0095034F /* skycons.js */; };
@@ -54,6 +55,7 @@
 		A28A132921A5198900414890 /* CurrentDataForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDataForecast.swift; sourceTree = "<group>"; };
 		A28A132D21A51E7F00414890 /* ForecastIntermediary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastIntermediary.swift; sourceTree = "<group>"; };
 		A28A132F21A57D9200414890 /* URL+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Helper.swift"; sourceTree = "<group>"; };
+		A28A48CC21B6404300BEB813 /* WeeklyForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyForecastTableViewCell.swift; sourceTree = "<group>"; };
 		A2E09A1021AC208E0095034F /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		A2E09A1221AC23B60095034F /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		A2E09A1921B559EC0095034F /* skycons.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = skycons.js; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 		A2F83BBB21A6297D0011323A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A28A48CC21B6404300BEB813 /* WeeklyForecastTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				A28A132421A45CEC00414890 /* ForecastController.swift in Sources */,
 				A2F83BBD21A62A730011323A /* DataForecast.swift in Sources */,
 				A28A132821A5060900414890 /* API.swift in Sources */,
+				A28A48CD21B6404300BEB813 /* WeeklyForecastTableViewCell.swift in Sources */,
 				A216B88921A597C200D41727 /* ForecastViewController.swift in Sources */,
 				A222A64121A3CD6E009537E5 /* ForecastListViewController.swift in Sources */,
 			);

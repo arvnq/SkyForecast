@@ -13,7 +13,6 @@ class ForecastViewController: UIViewController {
 
     
     @IBOutlet weak var currentForecastStackView: UIStackView!
-    @IBOutlet weak var locationName: UILabel!
     @IBOutlet weak var currentTemperature: UILabel!
     @IBOutlet weak var summary: UILabel!
     @IBOutlet weak var windBearing: UILabel!
@@ -21,7 +20,6 @@ class ForecastViewController: UIViewController {
     @IBOutlet weak var forecastIcon: WKWebView!
     
     @IBOutlet weak var wholeDayForecastStackView: UIStackView!
-    @IBOutlet weak var wdLocationName: UILabel!
     @IBOutlet weak var wdSummary: UILabel!
     @IBOutlet weak var wdHighTemperature: UILabel!
     @IBOutlet weak var wdLowTemperature: UILabel!
@@ -29,19 +27,22 @@ class ForecastViewController: UIViewController {
     @IBOutlet weak var wdWindSpeed: UILabel!
     @IBOutlet weak var wdForecastIcon: WKWebView!
     
+    @IBOutlet weak var weeklyForecastStackView: UIStackView!
+    @IBOutlet weak var wkTableView: UITableView!
+    
+    @IBOutlet weak var locationName: UILabel!
     @IBOutlet weak var faveButton: UIBarButtonItem!
     
     var forecast: Forecast?
-    var icon: String?
-    
-    //weak var delegate: ForecastViewControllerDelegate?
-    
     var alertLoader: UIAlertController = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         forecastIcon.navigationDelegate = self
         wdForecastIcon.navigationDelegate = self
+        
+        wkTableView.delegate = self
+        wkTableView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +50,7 @@ class ForecastViewController: UIViewController {
         
         currentForecastStackView.isHidden = true
         wholeDayForecastStackView.isHidden = true
+        weeklyForecastStackView.isHidden = true
         
         guard let forecast = forecast else { return }
         
@@ -66,14 +68,13 @@ class ForecastViewController: UIViewController {
             let forecastFrequency = forecast.forecastFrequency else { return }
         
         navigationItem.title = FrequencyForecast.forecastTitle(forFrequency: forecastFrequency)
+        locationName.text = forecast.location.locationName
         
         switch(forecastFrequency) {
             case .currently: fillCurrentForecast(on: forecast.location, using: completeForecast.currently)
             case .hourly: fillWholeDayForecast(on: forecast.location, using: completeForecast.daily.data.first!)
-            case .daily: fillWholeDayForecast(on: forecast.location, using: completeForecast.daily.data.first!)
+            case .daily: fillWholeWeekForecast()
         }
-        
-        
         
         faveButton.title = forecast.isFavourite ? "Unfavourite" : "Favourite"
         
@@ -81,7 +82,6 @@ class ForecastViewController: UIViewController {
     
     func fillCurrentForecast(on location: Location, using currentData: CurrentDataForecast) {
         currentForecastStackView.isHidden = false
-        locationName.text = location.locationName
         currentTemperature.text = String(currentData.temperature)
         summary.text = currentData.summary
         windBearing.text = String(currentData.windBearing)
@@ -91,7 +91,6 @@ class ForecastViewController: UIViewController {
     
     func fillWholeDayForecast(on location: Location, using wholeDayData: DailyDataForecast) {
         wholeDayForecastStackView.isHidden = false
-        wdLocationName.text = location.locationName
         wdSummary.text = wholeDayData.summary
         wdHighTemperature.text = String(wholeDayData.temperatureHigh)
         wdLowTemperature.text = String(wholeDayData.temperatureLow)
@@ -100,10 +99,12 @@ class ForecastViewController: UIViewController {
         loadForecastIcon(using: wdForecastIcon)
     }
     
-    func fillWholeWeekForecast(on location: Location, using currentData: CurrentDataForecast) {
-        
+    func fillWholeWeekForecast() {
+        weeklyForecastStackView.isHidden = false
+        wkTableView.reloadData()
     }
     
+    //invokes api call
     func fetchForecast() {
         guard let forecast = forecast else { return }
         
@@ -142,7 +143,6 @@ class ForecastViewController: UIViewController {
 
 //extension for encapsulating the alertLoader
 extension ForecastViewController {
-    
     func showAlertLoader() {
         
         let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 50, y: 23, width: 15, height: 15))
@@ -191,4 +191,23 @@ extension ForecastViewController: WKNavigationDelegate {
             print("success!")
         }
     }
+}
+
+//table functions for 7-day weekly forecast
+extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return forecast?.completeForecast?.daily.data.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "weekForecastCell", for: indexPath) as! WeeklyForecastTableViewCell
+        
+        if let dailyForecast = forecast?.completeForecast?.daily.data[indexPath.row] {
+            cell.configureCell(using: dailyForecast)
+        }
+        
+        return cell
+    }
+    
+    
 }
