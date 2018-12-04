@@ -176,32 +176,38 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="eRo-7d-Rch">
                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="533.5"/>
                                         <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVk-uF-n4n">
+                                                <rect key="frame" x="0.0" y="0.0" width="187.5" height="89"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pap-vJ-CJp">
-                                                <rect key="frame" x="0.0" y="0.0" width="187.5" height="106.5"/>
+                                                <rect key="frame" x="0.0" y="89" width="187.5" height="89"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZG-ci-sPX">
-                                                <rect key="frame" x="0.0" y="106.5" width="187.5" height="107"/>
+                                                <rect key="frame" x="0.0" y="178" width="187.5" height="89"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TI9-Y6-EiC">
-                                                <rect key="frame" x="0.0" y="213.5" width="187.5" height="106.5"/>
+                                                <rect key="frame" x="0.0" y="267" width="187.5" height="88.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIZ-70-9d5">
-                                                <rect key="frame" x="0.0" y="320" width="187.5" height="107"/>
+                                                <rect key="frame" x="0.0" y="355.5" width="187.5" height="89"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vh1-tq-v7t">
-                                                <rect key="frame" x="0.0" y="427" width="187.5" height="106.5"/>
+                                                <rect key="frame" x="0.0" y="444.5" width="187.5" height="89"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -383,6 +389,7 @@
                         <outlet property="forecastIcon" destination="Lr2-Gj-nBE" id="V7Q-mG-S0J"/>
                         <outlet property="locationName" destination="7Ka-5J-Pbg" id="Fg2-ap-z5g"/>
                         <outlet property="summary" destination="1Se-3Z-NjL" id="Drd-TV-mXA"/>
+                        <outlet property="wdForecastDate" destination="YVk-uF-n4n" id="CrA-V6-JdD"/>
                         <outlet property="wdForecastIcon" destination="Zl9-iz-Whe" id="HYE-gd-zqN"/>
                         <outlet property="wdHighTemperature" destination="dZG-ci-sPX" id="GES-rx-WTE"/>
                         <outlet property="wdLowTemperature" destination="TI9-Y6-EiC" id="HYL-FT-OQf"/>

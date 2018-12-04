@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A20086D421B6E24000A09E3D /* Double+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20086D321B6E24000A09E3D /* Double+Helper.swift */; };
 		A216B88921A597C200D41727 /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A216B88821A597C200D41727 /* ForecastViewController.swift */; };
 		A216B88B21A5BEEC00D41727 /* DailyDataForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A216B88A21A5BEEC00D41727 /* DailyDataForecast.swift */; };
 		A222A62221A2792B009537E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A222A62121A2792B009537E5 /* AppDelegate.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A20086D321B6E24000A09E3D /* Double+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Helper.swift"; sourceTree = "<group>"; };
 		A216B88821A597C200D41727 /* ForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
 		A216B88A21A5BEEC00D41727 /* DailyDataForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDataForecast.swift; sourceTree = "<group>"; };
 		A222A61E21A2792B009537E5 /* SkyForecast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkyForecast.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +161,7 @@
 				A28A132F21A57D9200414890 /* URL+Helper.swift */,
 				A2F83BBC21A62A730011323A /* DataForecast.swift */,
 				A222A64221A3CFA4009537E5 /* FrequencyForecast.swift */,
+				A20086D321B6E24000A09E3D /* Double+Helper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				A2E09A1121AC208E0095034F /* RootViewController.swift in Sources */,
 				A222A62421A2792B009537E5 /* LocationListViewController.swift in Sources */,
 				A2E09A1321AC23B60095034F /* SplashViewController.swift in Sources */,
+				A20086D421B6E24000A09E3D /* Double+Helper.swift in Sources */,
 				A28A132A21A5198900414890 /* CurrentDataForecast.swift in Sources */,
 				A28A132E21A51E7F00414890 /* ForecastIntermediary.swift in Sources */,
 				A222A64321A3CFA4009537E5 /* FrequencyForecast.swift in Sources */,

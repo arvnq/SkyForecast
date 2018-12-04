@@ -20,6 +20,7 @@ class ForecastViewController: UIViewController {
     @IBOutlet weak var forecastIcon: WKWebView!
     
     @IBOutlet weak var wholeDayForecastStackView: UIStackView!
+    @IBOutlet weak var wdForecastDate: UILabel!
     @IBOutlet weak var wdSummary: UILabel!
     @IBOutlet weak var wdHighTemperature: UILabel!
     @IBOutlet weak var wdLowTemperature: UILabel!
@@ -35,6 +36,7 @@ class ForecastViewController: UIViewController {
     
     var forecast: Forecast?
     var alertLoader: UIAlertController = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+    var skyIcon: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +84,7 @@ class ForecastViewController: UIViewController {
     
     func fillCurrentForecast(on location: Location, using currentData: CurrentDataForecast) {
         currentForecastStackView.isHidden = false
+        skyIcon = currentData.icon
         currentTemperature.text = String(currentData.temperature)
         summary.text = currentData.summary
         windBearing.text = String(currentData.windBearing)
@@ -91,6 +94,8 @@ class ForecastViewController: UIViewController {
     
     func fillWholeDayForecast(on location: Location, using wholeDayData: DailyDataForecast) {
         wholeDayForecastStackView.isHidden = false
+        skyIcon = wholeDayData.icon
+        wdForecastDate.text = Double(wholeDayData.time).convertEpochTime()
         wdSummary.text = wholeDayData.summary
         wdHighTemperature.text = String(wholeDayData.temperatureHigh)
         wdLowTemperature.text = String(wholeDayData.temperatureLow)
@@ -180,8 +185,8 @@ extension ForecastViewController: WKNavigationDelegate {
     //evaluate script and pass the current forecast icon from api
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         
-        guard let icon = forecast?.completeForecast?.currently.icon else { return }
-        let iconToDisplay = icon.replacingOccurrences(of: "-", with: "_").uppercased()
+        guard let skyIcon = skyIcon else { return }
+        let iconToDisplay = skyIcon.replacingOccurrences(of: "-", with: "_").uppercased()
         
         let jsIconLoader = "var skycons = new Skycons({'color':'red'});" +
                             "skycons.set('skycon', Skycons.\(iconToDisplay) );" +
@@ -208,6 +213,5 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
-    
     
 }

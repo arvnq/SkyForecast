@@ -40,7 +40,7 @@ class WeeklyForecastTableViewCell: UITableViewCell, WKNavigationDelegate{
         
         dailyForecast = forecast
         
-        forecastDate.text = String(forecast.time)
+        forecastDate.text = Double(forecast.time).convertEpochTime()
         summary.text = forecast.summary
         highTemperature.text = String(forecast.temperatureHigh)
         lowTemperature.text = String(forecast.temperatureLow)
