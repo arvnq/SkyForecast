@@ -36,6 +36,8 @@ class ForecastController {
             if let data = data {
                 let forecastResponse = try? jsonDecoder.decode(CompleteForecast.self, from: data)
                 completion(forecastResponse)
+            } else {
+                completion(nil)
             }
         }
         dataTask.resume()

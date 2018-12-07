@@ -9,13 +9,30 @@
 import UIKit
 
 class LocationListButton: UIButton {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
     }
-    */
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupButton()
+    }
 
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupButton()
+    }
+    
+    
+    private func setupButton() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.heightAnchor.constraint(equalToConstant: 20.0),
+            self.widthAnchor.constraint(equalToConstant: 30.0)
+        ])
+        self.setImage(UIImage(named: "location.pdf"), for: .normal)
+        self.imageView?.tintColor = .black
+    }
 }
+

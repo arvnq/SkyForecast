@@ -11,7 +11,7 @@ import WebKit
 
 class ForecastViewController: UIViewController {
 
-    
+    //MARK:- IBOUTLETS
     @IBOutlet weak var currentForecastStackView: UIStackView!
     @IBOutlet weak var currentTemperature: UILabel!
     @IBOutlet weak var summary: UILabel!
@@ -34,10 +34,13 @@ class ForecastViewController: UIViewController {
     @IBOutlet weak var locationName: UILabel!
     @IBOutlet weak var faveButton: UIBarButtonItem!
     
+    
+    //MARK:- PROPERTIES
     var forecast: Forecast?
     var alertLoader: UIAlertController = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
     var skyIcon: String?
     
+    //MARK:- LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         forecastIcon.navigationDelegate = self
@@ -45,6 +48,10 @@ class ForecastViewController: UIViewController {
         
         wkTableView.delegate = self
         wkTableView.dataSource = self
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.menuButton(self, action: #selector(favouriteTapped), using: "unfavourite.pdf")
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.menuButton(self, action: #selector(unwindToForecast), using: "forecast.pdf")
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +71,7 @@ class ForecastViewController: UIViewController {
         }
     }
     
+    //MARK:- INSTANCE METHODS
     func updateUI() {
         guard let forecast = forecast,
             let completeForecast = forecast.completeForecast,
@@ -72,16 +80,18 @@ class ForecastViewController: UIViewController {
         navigationItem.title = FrequencyForecast.forecastTitle(forFrequency: forecastFrequency)
         locationName.text = forecast.location.locationName
         
+        //switching what UI to display depending on the forecast frequence selected.
         switch(forecastFrequency) {
             case .currently: fillCurrentForecast(on: forecast.location, using: completeForecast.currently)
             case .hourly: fillWholeDayForecast(on: forecast.location, using: completeForecast.daily.data.first!)
             case .daily: fillWholeWeekForecast()
         }
         
-        faveButton.title = forecast.isFavourite ? "Unfavourite" : "Favourite"
-        
+        let image = forecast.isFavourite ? "favourite.pdf" : "unfavourite.pdf"
+        (self.navigationItem.rightBarButtonItem?.customView as! UIButton).setImage(UIImage(named: image), for: .normal)
     }
     
+    // show current weather forecast UI
     func fillCurrentForecast(on location: Location, using currentData: CurrentDataForecast) {
         currentForecastStackView.isHidden = false
         skyIcon = currentData.icon
@@ -92,6 +102,7 @@ class ForecastViewController: UIViewController {
         loadForecastIcon(using: forecastIcon)
     }
     
+    // show 24-Hour forecast UI
     func fillWholeDayForecast(on location: Location, using wholeDayData: DailyDataForecast) {
         wholeDayForecastStackView.isHidden = false
         skyIcon = wholeDayData.icon
@@ -104,12 +115,13 @@ class ForecastViewController: UIViewController {
         loadForecastIcon(using: wdForecastIcon)
     }
     
+    // reload table data to display forecast when 7-Day forecast is selected
     func fillWholeWeekForecast() {
         weeklyForecastStackView.isHidden = false
         wkTableView.reloadData()
     }
     
-    //invokes api call
+    //MARK:- API
     func fetchForecast() {
         guard let forecast = forecast else { return }
         
@@ -123,16 +135,33 @@ class ForecastViewController: UIViewController {
                     self.dismissAlertLoader()
                     self.updateUI()
                 }
+            } else { //if there is an issue in API call (network issue, etc.) show alert
+                DispatchQueue.main.async { AlertView.showApiErrorAlert(on: self) }
+                print("API Error. No forecast retrieved.")
+                return
             }
         }
     }
     
-    
-    
-    @IBAction func favouriteTapped(_ sender: Any) {
+    //MARK:- IBACTIONS
+    //favourites button tapped. Save the forecast as favourite in Documents Directory
+    @IBAction @objc func favouriteTapped(_ sender: UIButton) {
         self.forecast?.toggleFavourite()
         ForecastController.shared.faveForecast = forecast
         ForecastController.shared.saveForecast(forecast)
+        
+        let image = self.forecast?.isFavourite ?? false ? "favourite.pdf" : "unfavourite.pdf"
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            sender.setImage(UIImage(named: image), for: .normal)
+            sender.transform = CGAffineTransform(rotationAngle: .pi)
+            sender.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        }) { _ in
+            UIView.animate(withDuration: 0.3, animations: {
+                sender.transform = CGAffineTransform.identity
+            })
+        }
+        
         print("test")
     }
     
@@ -140,12 +169,13 @@ class ForecastViewController: UIViewController {
         performSegue(withIdentifier: "unwindToLocation", sender: nil)
     }
     
-    @IBAction func unwindToForecast() {
+    @IBAction @objc func unwindToForecast() {
         performSegue(withIdentifier: "unwindToForecast", sender: nil)
     }
     
 }
 
+//MARK:- EXTENSIONS
 //extension for encapsulating the alertLoader
 extension ForecastViewController {
     func showAlertLoader() {
