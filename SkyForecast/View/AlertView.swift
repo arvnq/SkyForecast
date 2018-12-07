@@ -7,3 +7,26 @@
 //
 
 import Foundation
+import UIKit
+
+struct AlertView {
+    
+    static func showBasicAlert(on controller: UIViewController, withMessage message: String) {
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        
+        let alertAction = UIAlertAction(title: "Okay", style: .cancel) { (alert) in
+            executeAlert(onController: controller)
+        }
+        
+        alertController.addAction(alertAction)
+        controller.present(alertController, animated: true, completion: nil)
+    }
+    
+    static func showApiErrorAlert(on controller: ForecastViewController) {
+        showBasicAlert(on: controller, withMessage: "Cannot retrieve forecast. Please try again later.")
+    }
+    
+    static func executeAlert(onController controller: UIViewController) {
+        controller.performSegue(withIdentifier: "unwindToLocation", sender: nil)
+    }
+}
