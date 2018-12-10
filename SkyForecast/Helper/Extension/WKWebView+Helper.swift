@@ -7,3 +7,20 @@
 //
 
 import Foundation
+import WebKit
+
+extension WKWebView {
+    //load the html responsible for displaying icon canvas
+    func loadIcon() {
+        do {
+            guard let filePath = Bundle.main.path(forResource: "skycons", ofType: "html") else { return }
+            let contents = try String(contentsOfFile: filePath)
+            let baseUrl = URL(fileURLWithPath: filePath)
+            
+            self.loadHTMLString(contents, baseURL: baseUrl)
+            self.scrollView.isScrollEnabled = false;
+        } catch {
+            print("Error loading Icon")
+        }
+    }
+}

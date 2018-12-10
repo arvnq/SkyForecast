@@ -40,26 +40,15 @@ class WeeklyForecastTableViewCell: UITableViewCell, WKNavigationDelegate{
         
         dailyForecast = forecast
         
+        forecastIcon.loadIcon()
         forecastDate.text = Double(forecast.time).convertEpochTime()
         summary.text = forecast.summary
-        highTemperature.text = String(forecast.temperatureHigh)
-        lowTemperature.text = String(forecast.temperatureLow)
-        windBearing.text = String(forecast.windBearing)
-        windSpeed.text = String(forecast.windSpeed)
         
-        loadIcon()
-    }
-    
-    func loadIcon() {
-        do {
-            guard let filePath = Bundle.main.path(forResource: "skycons", ofType: "html") else { return }
-            let contents = try String(contentsOfFile: filePath)
-            let baseUrl = URL(fileURLWithPath: filePath)
-            
-            forecastIcon.loadHTMLString(contents, baseURL: baseUrl)
-        } catch {
-            print("Error loading Icon")
-        }
+        highTemperature.attributedText = NSAttributedString.setupText(forField: "High: ", usingValue: String(forecast.temperatureHigh).degree(temperature: "C"))
+        lowTemperature.attributedText = NSAttributedString.setupText(forField: "Low: ", usingValue: String(forecast.temperatureLow).degree(temperature: "C"))
+        windBearing.attributedText = NSAttributedString.setupText(forField: "Wind Direction: ", usingValue: String(forecast.windBearing).degree())
+        windSpeed.attributedText = NSAttributedString.setupText(forField: "Wind Speed: ", usingValue: String(forecast.windSpeed).kmPHr()) 
+        
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -71,7 +60,7 @@ class WeeklyForecastTableViewCell: UITableViewCell, WKNavigationDelegate{
         
         let jsIconLoader = "var skycons = new Skycons({'color':'red'});" +
             "skycons.set('skycon', Skycons.\(iconToDisplay) );" +
-        "skycons.play();"
+            "skycons.play();"
         
         webView.evaluateJavaScript(jsIconLoader, completionHandler: nil)
     }
