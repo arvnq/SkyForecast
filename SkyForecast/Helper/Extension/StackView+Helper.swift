@@ -10,8 +10,14 @@ import Foundation
 import UIKit
 
 extension UIStackView {
-    func configureLayoutMargin() {
+    func changeMainViewLayoutMargin() {
         self.layoutMargins = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        self.isLayoutMarginsRelativeArrangement = true
+    }
+    
+    //not using at the moment. save for future version
+    func changeBottomViewLayoutMargin() {
+        self.layoutMargins = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 20)
         self.isLayoutMarginsRelativeArrangement = true
     }
 }
