@@ -7,3 +7,15 @@
 //
 
 import Foundation
+
+extension String {
+    
+    func degree(temperature: String = "") -> String {
+        return "\(self)\u{00B0}\(temperature)"
+    }
+    
+    func kmPHr() -> String {
+        return "\(self)km/h"
+    }
+    
+}
