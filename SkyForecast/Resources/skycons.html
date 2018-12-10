@@ -1,13 +1,39 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, shrink-to-fit=yes" />
     <title></title>
-    <style type="text/css"></style>
+    <style type="text/css">
+        html, body {
+            overflow-x: hidden
+        }
+        body {
+            background-color: blue;
+            overflow: hidden !important;
+            width: 100%;
+            height: 100%;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    </style>
   </head>
   <body>
       <figure class="icons">
-        <canvas id="skycon" width="200" height="200"></canvas>
+        <canvas id="skycon" width="100" height="100"></canvas>
       </figure>
     <script src="skycons.js"></script>
+    <script>
+        window.onload = window.onresize = function() {
+            var canvas = document.getElementById('canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+    </script>
   </body>
 </html>
