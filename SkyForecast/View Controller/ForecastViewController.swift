@@ -48,6 +48,8 @@ class ForecastViewController: UIViewController {
         
         wkTableView.delegate = self
         wkTableView.dataSource = self
+        wkTableView.rowHeight = UITableView.automaticDimension
+        wkTableView.estimatedRowHeight = 250.0
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.menuButton(self, action: #selector(favouriteTapped), using: "unfavourite.pdf")
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.menuButton(self, action: #selector(unwindToForecast), using: "forecast.pdf")
@@ -94,30 +96,41 @@ class ForecastViewController: UIViewController {
     // show current weather forecast UI
     func fillCurrentForecast(on location: Location, using currentData: CurrentDataForecast) {
         currentForecastStackView.isHidden = false
+        currentForecastStackView.changeMainViewLayoutMargin()
+        
         skyIcon = currentData.icon
-        currentTemperature.text = String(currentData.temperature)
-        summary.text = currentData.summary
-        windBearing.text = String(currentData.windBearing)
-        windSpeed.text = String(currentData.windSpeed)
-        loadForecastIcon(using: forecastIcon)
+        forecastIcon.loadIcon()// loadForecastIcon(using: forecastIcon)
+        
+        currentTemperature.text = String(currentData.temperature).degree(temperature: "C")
+        summary.text = "\(currentData.summary)" //and mostly breezy with a chance of meatballs
+        
+        windBearing.attributedText = NSAttributedString.setupText(forField: "Wind Direction: ", usingValue: String(currentData.windBearing).degree())
+        windSpeed.attributedText = NSAttributedString.setupText(forField: "Wind Speed: ", usingValue: String(currentData.windSpeed).kmPHr())
     }
     
     // show 24-Hour forecast UI
     func fillWholeDayForecast(on location: Location, using wholeDayData: DailyDataForecast) {
         wholeDayForecastStackView.isHidden = false
+        wholeDayForecastStackView.changeMainViewLayoutMargin()
+        
         skyIcon = wholeDayData.icon
+        wdForecastIcon.loadIcon() // loadForecastIcon(using: wdForecastIcon)
+        
         wdForecastDate.text = Double(wholeDayData.time).convertEpochTime()
         wdSummary.text = wholeDayData.summary
-        wdHighTemperature.text = String(wholeDayData.temperatureHigh)
-        wdLowTemperature.text = String(wholeDayData.temperatureLow)
-        wdWindBearing.text = String(wholeDayData.windBearing)
-        wdWindSpeed.text = String(wholeDayData.windSpeed)
-        loadForecastIcon(using: wdForecastIcon)
+        
+        wdHighTemperature.attributedText = NSAttributedString.setupText(forField: "High: ", usingValue: String(wholeDayData.temperatureHigh).degree(temperature: "C"))
+        wdLowTemperature.attributedText = NSAttributedString.setupText(forField: "Low: ", usingValue: String(wholeDayData.temperatureLow).degree(temperature: "C"))
+        
+        
+        wdWindBearing.attributedText = NSAttributedString.setupText(forField: "Wind Direction: ", usingValue: String(wholeDayData.windBearing).degree())
+        wdWindSpeed.attributedText = NSAttributedString.setupText(forField: "Wind Speed: ", usingValue: String(wholeDayData.windSpeed).kmPHr())
     }
     
     // reload table data to display forecast when 7-Day forecast is selected
     func fillWholeWeekForecast() {
         weeklyForecastStackView.isHidden = false
+        weeklyForecastStackView.changeMainViewLayoutMargin()
         wkTableView.reloadData()
     }
     
@@ -198,19 +211,6 @@ extension ForecastViewController {
 }
 
 extension ForecastViewController: WKNavigationDelegate {
-    //load the html responsible for displaying icon canvas
-    func loadForecastIcon(using forecastIcon: WKWebView) {
-        do {
-            guard let filePath = Bundle.main.path(forResource: "skycons", ofType: "html") else { return }
-            let contents = try String(contentsOfFile: filePath)
-            let baseUrl = URL(fileURLWithPath: filePath)
-            
-            forecastIcon.loadHTMLString(contents, baseURL: baseUrl)
-            
-        } catch {
-            print("HTML File Error")
-        }
-    }
     
     //evaluate script and pass the current forecast icon from api
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -242,6 +242,10 @@ extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
