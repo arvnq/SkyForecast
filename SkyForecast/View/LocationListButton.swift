@@ -8,6 +8,7 @@
 
 import UIKit
 
+//custom button for location list at the bottom of the page
 class LocationListButton: UIButton {
     
     override func awakeFromNib() {

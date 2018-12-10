@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+//setting up attributed text for labels
 extension NSAttributedString {
     static func setupText(forField field: String, usingValue value: String) -> NSAttributedString {
 

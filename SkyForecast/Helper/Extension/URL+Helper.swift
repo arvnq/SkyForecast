@@ -8,6 +8,7 @@
 
 import Foundation
 
+//URL extension for setting up query parameters
 extension URL {
     func withQuery(on queryParam: [String: String]) -> URL? {
         

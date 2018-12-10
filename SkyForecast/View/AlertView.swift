@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+//alert will display when fetching forecast failed
 struct AlertView {
     
     static func showBasicAlert(on controller: UIViewController, withMessage message: String) {

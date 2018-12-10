@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+//encapsulating main view layout margins
 extension UIStackView {
     func changeMainViewLayoutMargin() {
         self.layoutMargins = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)

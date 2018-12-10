@@ -44,13 +44,12 @@ class ForecastListViewController: UIViewController {
         self.forecast = Forecast(location: location, forecastFrequency: forecastFrequency, completeForecast: nil, isFavourite: false)
         self.faveForecast = ForecastController.shared.faveForecast
         
+        //pass the correct faveForecast else pass the instantiated forecast
         if let faveForecast = faveForecast {
             destinationVC.forecast = faveForecast == forecast ? faveForecast : forecast
         } else {
             destinationVC.forecast = forecast
         }
-        
-        //destinationVC.delegate = self
         
     }
     
@@ -80,21 +79,4 @@ extension ForecastListViewController: UITableViewDelegate, UITableViewDataSource
     
     
 }
-
-//extension ForecastListViewController: ForecastViewControllerDelegate {
-//    func forecastViewController(_ forecastViewController: ForecastViewController, didUnwindToLocation forecast: Forecast?) {
-//        //do nothing
-//    }
-//
-//    func forecastViewController(_ forecastViewController: ForecastViewController, didUnwindToForecast forecast: Forecast?) {
-//        guard let forecast = forecast else {  return }
-//
-//        navigationController?.popViewController(animated: true)
-//        //ForecastController.shared.saveForecast(forecast)
-//        print("ForecastListView!!!")
-//
-//    }
-//
-//
-//}
 

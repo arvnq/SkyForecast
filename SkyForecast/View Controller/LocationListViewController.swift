@@ -58,12 +58,6 @@ class LocationListViewController: UIViewController {
     
     
     @IBAction func unwindToLocation(_ segue: UIStoryboardSegue) {
-        //let sourceVC = segue.source as! ForecastViewController
-        //guard let forecast = sourceVC.forecast else { return }
-        
-        //navigationController?.popViewController(animated: true)
-        //ForecastController.shared.saveForecast(forecast)
-        
         print("LocationListView!!!")
        
     }

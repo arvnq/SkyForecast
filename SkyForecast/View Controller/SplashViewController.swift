@@ -8,6 +8,7 @@
 
 import UIKit
 
+//not being used at the moment
 class SplashViewController: UIViewController {
 
     private let activityIndicator = UIActivityIndicatorView(style: .gray)

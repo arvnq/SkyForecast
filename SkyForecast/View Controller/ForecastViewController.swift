@@ -48,9 +48,13 @@ class ForecastViewController: UIViewController {
         
         wkTableView.delegate = self
         wkTableView.dataSource = self
+        
+        // we need to make row height dynamic since we are not sure of the length of
+        // the summary given by the api
         wkTableView.rowHeight = UITableView.automaticDimension
         wkTableView.estimatedRowHeight = 250.0
         
+        //configuring correct image for left and right bar button. see Bar button extension
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.menuButton(self, action: #selector(favouriteTapped), using: "unfavourite.pdf")
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.menuButton(self, action: #selector(unwindToForecast), using: "forecast.pdf")
 
@@ -91,6 +95,8 @@ class ForecastViewController: UIViewController {
         
         let image = forecast.isFavourite ? "favourite.pdf" : "unfavourite.pdf"
         (self.navigationItem.rightBarButtonItem?.customView as! UIButton).setImage(UIImage(named: image), for: .normal)
+        //we used the custom view from the rhs barbutton because we can't get the custom view from faveButton outlet.
+        //I believe this is because we are instantiating bar button item programmatically.
     }
     
     // show current weather forecast UI
@@ -165,6 +171,7 @@ class ForecastViewController: UIViewController {
         
         let image = self.forecast?.isFavourite ?? false ? "favourite.pdf" : "unfavourite.pdf"
         
+        //animating the star button
         UIView.animate(withDuration: 0.3, animations: {
             sender.setImage(UIImage(named: image), for: .normal)
             sender.transform = CGAffineTransform(rotationAngle: .pi)
@@ -212,7 +219,7 @@ extension ForecastViewController {
 
 extension ForecastViewController: WKNavigationDelegate {
     
-    //evaluate script and pass the current forecast icon from api
+    //pass the current forecast icon from api and evaluate the script
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         
         guard let skyIcon = skyIcon else { return }

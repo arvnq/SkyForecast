@@ -8,6 +8,7 @@
 
 import Foundation
 
+//making string type append degree and km/hr
 extension String {
     
     func degree(temperature: String = "") -> String {
