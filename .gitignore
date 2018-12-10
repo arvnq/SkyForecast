@@ -9,6 +9,8 @@ DerivedData/
 ## Key
 SkyForecast/darksky.apikey
 
+## Test Playground
+SkyForecast/My.playground/
 
 ## Various settings
 *.pbxuser
