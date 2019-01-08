@@ -58,7 +58,7 @@ class WeeklyForecastTableViewCell: UITableViewCell, WKNavigationDelegate{
         let icon = dailyForecast.icon
         let iconToDisplay = icon.replacingOccurrences(of: "-", with: "_").uppercased()
         
-        let jsIconLoader = "var skycons = new Skycons({'color':'red'});" +
+        let jsIconLoader = "var skycons = new Skycons({'color':'gray'});" +
             "skycons.set('skycon', Skycons.\(iconToDisplay) );" +
             "skycons.play();"
         
