@@ -27,20 +27,22 @@ struct DailyDataForecast: Codable, DataForecast {
         case windSpeed
     }
     
-    init(from decoder: Decoder) throws {
-        do {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            
-            self.time = try container.decode(Int32.self, forKey: .time)
-            self.summary  = try container.decode(String.self, forKey: .summary)
-            self.icon  = try container.decode(String.self, forKey: .icon)
-            self.temperatureHigh  = try container.decode(Double.self, forKey: .temperatureHigh)
-            self.temperatureLow  = try container.decode(Double.self, forKey: .temperatureLow)
-            self.windBearing  = try container.decode(Double.self, forKey: .windBearing)
-            self.windSpeed  = try container.decode(Double.self, forKey: .windSpeed)
-            
-        } catch {
-            fatalError()
-        }
-    }
+    // init(from:) is needed if we are to decode complex types. if we are going to decode primitive types only,
+    // we can omit it and let compiler create it for us
+//    init(from decoder: Decoder) throws {
+//        do {
+//            let container = try decoder.container(keyedBy: CodingKeys.self)
+//
+//            self.time = try container.decode(Int32.self, forKey: .time)
+//            self.summary  = try container.decode(String.self, forKey: .summary)
+//            self.icon  = try container.decode(String.self, forKey: .icon)
+//            self.temperatureHigh  = try container.decode(Double.self, forKey: .temperatureHigh)
+//            self.temperatureLow  = try container.decode(Double.self, forKey: .temperatureLow)
+//            self.windBearing  = try container.decode(Double.self, forKey: .windBearing)
+//            self.windSpeed  = try container.decode(Double.self, forKey: .windSpeed)
+//
+//        } catch {
+//            fatalError()
+//        }
+//    }
 }

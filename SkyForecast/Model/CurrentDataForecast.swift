@@ -26,23 +26,24 @@ struct CurrentDataForecast: Codable, DataForecast {
         case windSpeed
     }
     
-    //init(from:) is needed if we are not going to represent all of the data returned
-    init(from decoder: Decoder) throws {
-        
-        do {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            
-            self.time = try container.decode(Int32.self, forKey: .time)
-            self.summary = try container.decode(String.self, forKey: .summary)
-            self.icon = try container.decode(String.self, forKey: .icon)
-            self.temperature = try container.decode(Double.self, forKey: .temperature)
-            self.windBearing = try container.decode(Double.self, forKey: .windBearing)
-            self.windSpeed = try container.decode(Double.self, forKey: .windSpeed)
-            
-        } catch {
-            fatalError("\(error)")
-        }
-    }
+    // init(from:) is needed if we are to decode complex types. like if there is something missing,
+    // we are going to use an alternative for missing keys. Else we are good without one
+//    init(from decoder: Decoder) throws {
+//
+//        do {
+//            let container = try decoder.container(keyedBy: CodingKeys.self)
+//
+//            self.time = try container.decode(Int32.self, forKey: .time)
+//            self.summary = try container.decode(String.self, forKey: .summary)
+//            self.icon = try container.decode(String.self, forKey: .icon)
+//            self.temperature = try container.decode(Double.self, forKey: .temperature)
+//            self.windBearing = try container.decode(Double.self, forKey: .windBearing)
+//            self.windSpeed = try container.decode(Double.self, forKey: .windSpeed)
+//
+//        } catch {
+//            fatalError("\(error)")
+//        }
+//    }
     
     
 }
