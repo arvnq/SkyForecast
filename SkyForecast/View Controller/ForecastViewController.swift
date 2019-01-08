@@ -33,6 +33,7 @@ class ForecastViewController: UIViewController {
     
     @IBOutlet weak var locationName: UILabel!
     @IBOutlet weak var faveButton: UIBarButtonItem!
+    @IBOutlet weak var poweredByButton: UIButton!
     
     
     //MARK:- PROPERTIES
@@ -62,6 +63,10 @@ class ForecastViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        poweredByButton.imageView?.contentMode = .scaleAspectFill
+        poweredByButton.imageView?.clipsToBounds = false
+        poweredByButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 100)
         
         currentForecastStackView.isHidden = true
         wholeDayForecastStackView.isHidden = true
@@ -97,6 +102,11 @@ class ForecastViewController: UIViewController {
         (self.navigationItem.rightBarButtonItem?.customView as! UIButton).setImage(UIImage(named: image), for: .normal)
         //we used the custom view from the rhs barbutton because we can't get the custom view from faveButton outlet.
         //I believe this is because we are instantiating bar button item programmatically.
+    }
+    
+    func openUrl(url: URL?) {
+        guard let url = url else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
     // show current weather forecast UI
@@ -193,6 +203,11 @@ class ForecastViewController: UIViewController {
         performSegue(withIdentifier: "unwindToForecast", sender: nil)
     }
     
+    @IBAction func poweredTapped(_ sender: Any) {
+        openUrl(url: URL(string: "https://darksky.net/poweredby/"))
+    }
+    
+    
 }
 
 //MARK:- EXTENSIONS
@@ -225,7 +240,7 @@ extension ForecastViewController: WKNavigationDelegate {
         guard let skyIcon = skyIcon else { return }
         let iconToDisplay = skyIcon.replacingOccurrences(of: "-", with: "_").uppercased()
         
-        let jsIconLoader = "var skycons = new Skycons({'color':'red'});" +
+        let jsIconLoader = "var skycons = new Skycons({'color':'gray'});" +
                             "skycons.set('skycon', Skycons.\(iconToDisplay) );" +
                             "skycons.play();"
         

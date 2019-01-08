@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -270,17 +271,19 @@
                                     <constraint firstItem="AIZ-70-9d5" firstAttribute="height" secondItem="ynL-Sz-5kW" secondAttribute="height" multiplier="0.1" id="vd3-7y-HeT"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="c8s-rZ-4OZ" userLabel="Bottom Stack View">
-                                <rect key="frame" x="0.0" y="733.66666666666663" width="375" height="36.333333333333371"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="c8s-rZ-4OZ" userLabel="Bottom Stack View">
+                                <rect key="frame" x="0.0" y="737.33333333333337" width="375" height="40.666666666666629"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Powered by DarkSky" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z1j-hd-nN7">
-                                        <rect key="frame" x="8" y="7.9999999999999982" width="315" height="20.333333333333329"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htT-RM-GCr" customClass="LocationListButton" customModule="SkyForecast" customModuleProvider="target">
-                                        <rect key="frame" x="323" y="7.9999999999999982" width="32" height="20.333333333333329"/>
+                                    <button opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dCH-8M-7SJ" userLabel="PoweredByButton">
+                                        <rect key="frame" x="8" y="8.0000000000000018" width="309" height="24.666666666666671"/>
+                                        <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <state key="normal" title="Button" image="poweredby-oneline"/>
+                                        <connections>
+                                            <action selector="poweredTapped:" destination="Suy-wG-JFR" eventType="touchUpInside" id="x05-t4-Nba"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htT-RM-GCr" userLabel="LocationMenuButton" customClass="LocationListButton" customModule="SkyForecast" customModuleProvider="target">
+                                        <rect key="frame" x="325" y="8.0000000000000018" width="30" height="24.666666666666671"/>
                                         <state key="normal">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -293,10 +296,10 @@
                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="20"/>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uPF-8A-DQC">
-                                <rect key="frame" x="0.0" y="128" width="375" height="605.66666666666663"/>
+                                <rect key="frame" x="0.0" y="128" width="375" height="609.33333333333337"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uri-rK-y4W">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="605.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="609.33333333333337"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="weekForecastCell" rowHeight="219" id="FlS-fs-RXG" customClass="WeeklyForecastTableViewCell" customModule="SkyForecast" customModuleProvider="target">
@@ -360,7 +363,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="fuL-iU-Q6z">
-                                                                            <rect key="frame" x="0.0" y="181.33333333333337" width="345" height="20.333333333333343"/>
+                                                                            <rect key="frame" x="0.0" y="181.33333333333334" width="345" height="20.333333333333343"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -406,11 +409,12 @@
                             <constraint firstItem="ahd-az-6jY" firstAttribute="top" secondItem="7Ka-5J-Pbg" secondAttribute="bottom" constant="20" id="6fK-Xs-Ae5"/>
                             <constraint firstItem="ahd-az-6jY" firstAttribute="trailing" secondItem="Xti-Tj-8Ij" secondAttribute="trailing" id="FoH-Jw-FMX"/>
                             <constraint firstItem="ahd-az-6jY" firstAttribute="height" secondItem="EEL-xd-gZT" secondAttribute="height" multiplier="0.35" id="Gku-Xy-IPq"/>
+                            <constraint firstItem="c8s-rZ-4OZ" firstAttribute="height" secondItem="EEL-xd-gZT" secondAttribute="height" multiplier="0.05" id="Phf-Iy-ATu"/>
                             <constraint firstItem="7Ka-5J-Pbg" firstAttribute="trailing" secondItem="Xti-Tj-8Ij" secondAttribute="trailing" id="SkF-1e-QxC"/>
                             <constraint firstItem="uPF-8A-DQC" firstAttribute="top" secondItem="7Ka-5J-Pbg" secondAttribute="bottom" constant="20" id="Y1S-S4-rq2"/>
                             <constraint firstItem="ahd-az-6jY" firstAttribute="leading" secondItem="Xti-Tj-8Ij" secondAttribute="leading" id="d3F-x3-aHj"/>
                             <constraint firstItem="7Ka-5J-Pbg" firstAttribute="leading" secondItem="Xti-Tj-8Ij" secondAttribute="leading" id="fC7-95-V2h"/>
-                            <constraint firstItem="c8s-rZ-4OZ" firstAttribute="bottom" secondItem="Xti-Tj-8Ij" secondAttribute="bottom" constant="-8" id="gfR-8x-5lG"/>
+                            <constraint firstItem="c8s-rZ-4OZ" firstAttribute="bottom" secondItem="Xti-Tj-8Ij" secondAttribute="bottom" id="gfR-8x-5lG"/>
                             <constraint firstItem="ynL-Sz-5kW" firstAttribute="top" secondItem="7Ka-5J-Pbg" secondAttribute="bottom" constant="20" id="jtM-hq-tVz"/>
                             <constraint firstItem="uPF-8A-DQC" firstAttribute="trailing" secondItem="Xti-Tj-8Ij" secondAttribute="trailing" id="lJc-2f-Aru"/>
                             <constraint firstItem="7Ka-5J-Pbg" firstAttribute="top" secondItem="Xti-Tj-8Ij" secondAttribute="top" constant="20" id="lvQ-lj-jrJ"/>
@@ -440,6 +444,7 @@
                         <outlet property="faveButton" destination="nZh-wK-zKd" id="oBK-OA-Dro"/>
                         <outlet property="forecastIcon" destination="Lr2-Gj-nBE" id="V7Q-mG-S0J"/>
                         <outlet property="locationName" destination="7Ka-5J-Pbg" id="Fg2-ap-z5g"/>
+                        <outlet property="poweredByButton" destination="dCH-8M-7SJ" id="C6q-hq-kpS"/>
                         <outlet property="summary" destination="1Se-3Z-NjL" id="Drd-TV-mXA"/>
                         <outlet property="wdForecastDate" destination="YVk-uF-n4n" id="CrA-V6-JdD"/>
                         <outlet property="wdForecastIcon" destination="Zl9-iz-Whe" id="HYE-gd-zqN"/>
@@ -479,4 +484,7 @@
             <point key="canvasLocation" x="327" y="134"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="poweredby-oneline" width="3350" height="759"/>
+    </resources>
 </document>
