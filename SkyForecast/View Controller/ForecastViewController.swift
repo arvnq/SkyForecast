@@ -192,7 +192,6 @@ class ForecastViewController: UIViewController {
             })
         }
         
-        print("test")
     }
     
     @IBAction func unwindToLocation(_ sender: Any) {
