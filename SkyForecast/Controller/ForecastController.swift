@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+/**
+ Handles the fetching of forecast from the webservice and the saving of forecast into Document Directory.
+ This controller should have only one instance throughout the app hence singleton.
+ */
 class ForecastController {
     
     static let shared = ForecastController()
@@ -23,13 +27,21 @@ class ForecastController {
         
     }
     
-    
+    /**
+     Main method of fetching forecast from web server. It returns a complete forecast from the decoded data.
+     - Parameters:
+         - location: contains the latitude and longitude of the place you want to fetch the forecast of.
+         - completion: an escaping closure that returns the complete forecast
+     */
     func fetchForecast(forLocation location: Location, completion: @escaping (CompleteForecast?)->Void) {
         
+        /// get the initial url from the base, key and locations coordinates
         let initialUrl = baseURL.appendingPathComponent(key).appendingPathComponent("\(location.locationLatitude),\(location.locationLongitude)")
         
+        /// apply the query extension to stitch the query dictionary into a final url
         guard let finalUrl = initialUrl.withQuery(on: Api.queryDictionary) else { return }
         
+        /// dataTask object main responsible for the fetching and decoding the json data and returning a complete forecast.
         let dataTask = URLSession.shared.dataTask(with: finalUrl) { (data, response, error) in
             let jsonDecoder = JSONDecoder()
             
@@ -43,9 +55,14 @@ class ForecastController {
         dataTask.resume()
     }
     
+    // saving the forecast.json in archive.
     static let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    // FIXME: Major issue. I should be saving the json search instead of the forecast object
     let archiveUrl = documentDirectory.appendingPathComponent("forecast").appendingPathExtension("json")
     
+    
+    /// Loading the foreacast
+    /// - Returns: Forecast object
     func loadForecast() -> Forecast? {
         let jsonDecoder = JSONDecoder()
         do {
@@ -58,6 +75,8 @@ class ForecastController {
         }
     }
     
+    /// Saving the forecast
+    /// - Parameter forecast: forecast to be saved
     func saveForecast(_ forecast: Forecast?) {
         let jsonEncoder = JSONEncoder()
         

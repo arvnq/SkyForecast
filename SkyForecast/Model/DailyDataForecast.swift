@@ -8,6 +8,10 @@
 
 import Foundation
 
+/**
+ Daily forecast represents the hourly (which is the first daily) and the whole week forecast.
+ CodingKey is included because there is a need for consistency in the naming convention.
+ */
 struct DailyDataForecast: Codable, DataForecast {
     let time: Int32
     let summary: String

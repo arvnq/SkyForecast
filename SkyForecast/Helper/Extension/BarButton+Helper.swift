@@ -9,8 +9,15 @@
 import Foundation
 import UIKit
 
-//manages bar buttons by assigning image and constant value on height and width constraint.
 extension UIBarButtonItem {
+    /**
+     Manages bar buttons by assigning image and constant value on height and width constraint.
+     - Parameters:
+         - target: target whose action method is called
+         - action: Selector identifying the action method to be called
+         - imageName: the image to be used
+     - Returns: UIBarButtonItem instantiated with the custom button set
+     */
     static func menuButton(_ target: Any?, action: Selector, using imageName: String) -> UIBarButtonItem {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: imageName), for: .normal)

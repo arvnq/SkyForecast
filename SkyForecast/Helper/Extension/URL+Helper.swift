@@ -8,8 +8,11 @@
 
 import Foundation
 
-//URL extension for setting up query parameters
 extension URL {
+    /**
+     URL extension for setting up query parameters.
+     - Parameter queryParam: A dictionary representing the query items setup in API struct
+     */
     func withQuery(on queryParam: [String: String]) -> URL? {
         
         var component = URLComponents(url: self, resolvingAgainstBaseURL: true)

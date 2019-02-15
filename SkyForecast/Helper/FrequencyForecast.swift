@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ Returns the cases for current, hourly and daily forecast
+ */
 enum FrequencyForecast: String, CaseIterable, Codable {
         case currently, hourly, daily
         

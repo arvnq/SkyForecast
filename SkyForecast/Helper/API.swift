@@ -8,6 +8,10 @@
 
 import Foundation
 
+/**
+ Api blue print. Api contains the api access key and a base url.
+ It also contains the queryDictionary for the query items used in fetch.
+ */
 struct Api {
     static var key: String!
     static var baseURL: URL = URL(string: PropertyKeys.baseURL)!

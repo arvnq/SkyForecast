@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ DataForecast contains all the necessary properties of a forecast
+ */
 protocol DataForecast {
     var time: Int32 { get }
     var summary: String { get }

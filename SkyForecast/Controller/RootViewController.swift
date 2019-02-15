@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-//not being used at the moment
+//For future version
 class RootViewController: UIViewController {
     private var current: UIViewController
     

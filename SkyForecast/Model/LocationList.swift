@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// List of preliminary locations together with their latitude and longitude
 struct LocationList {
     var locations: [Location]
     

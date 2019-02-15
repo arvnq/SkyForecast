@@ -9,6 +9,9 @@
 import UIKit
 import WebKit
 
+/**
+ TableView cell representing the rows of each forecast weekly
+ */
 class WeeklyForecastTableViewCell: UITableViewCell, WKNavigationDelegate{
 
     @IBOutlet weak var forecastDate: UILabel!
@@ -36,6 +39,10 @@ class WeeklyForecastTableViewCell: UITableViewCell, WKNavigationDelegate{
         // Configure the view for the selected state
     }
 
+    /**
+     Configure each of the cell/row in the weekly forecast.
+     - Parameter forecast: It uses the dailyDataForecast containing the hourly / daily data
+     */
     func configureCell(using forecast: DailyDataForecast) {
         
         dailyForecast = forecast

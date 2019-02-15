@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ Represents the location selection screen
+ */
 class LocationListViewController: UIViewController {
     
     
@@ -21,7 +24,7 @@ class LocationListViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    //dependency injection
+    //dependency injection on the locationList property
     required init?(coder aDecoder: NSCoder) {
         locationList = LocationList()
         super.init(coder: aDecoder)
@@ -70,6 +73,7 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Locations name are coming from LocationList
         let cell = tableView.dequeueReusableCell(withIdentifier: PropertyKeys.locationCellIdentifier, for: indexPath)
         cell.textLabel?.text = locationList.locations[indexPath.row].locationName
         

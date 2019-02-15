@@ -9,6 +9,9 @@
 import UIKit
 import WebKit
 
+/**
+ Forecast page
+ */
 class ForecastViewController: UIViewController {
 
     //MARK:- IBOUTLETS
@@ -64,6 +67,8 @@ class ForecastViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        /// configure the tool bar below the forecast page
+        
         poweredByButton.imageView?.contentMode = .scaleAspectFill
         poweredByButton.imageView?.clipsToBounds = false
         poweredByButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 100)
@@ -83,6 +88,7 @@ class ForecastViewController: UIViewController {
     }
     
     //MARK:- INSTANCE METHODS
+    /// we have a saved forecast and we update the ui based on this saved forecast
     func updateUI() {
         guard let forecast = forecast,
             let completeForecast = forecast.completeForecast,
@@ -91,7 +97,7 @@ class ForecastViewController: UIViewController {
         navigationItem.title = FrequencyForecast.forecastTitle(forFrequency: forecastFrequency)
         locationName.text = forecast.location.locationName
         
-        //switching what UI to display depending on the forecast frequence selected.
+        /// switching what UI to display depending on the forecast frequence saved.
         switch(forecastFrequency) {
             case .currently: fillCurrentForecast(on: forecast.location, using: completeForecast.currently)
             case .hourly: fillWholeDayForecast(on: forecast.location, using: completeForecast.daily.data.first!)
@@ -104,12 +110,18 @@ class ForecastViewController: UIViewController {
         //I believe this is because we are instantiating bar button item programmatically.
     }
     
+    /// This is for opening the link of DarkSky site
     func openUrl(url: URL?) {
         guard let url = url else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
-    // show current weather forecast UI
+    /**
+        Show current weather forecast UI
+        - Parameters:
+             - location: contains the coordinates of the location
+             - currentData: The data for the current forecast
+     */
     func fillCurrentForecast(on location: Location, using currentData: CurrentDataForecast) {
         currentForecastStackView.isHidden = false
         currentForecastStackView.changeMainViewLayoutMargin()
@@ -124,7 +136,12 @@ class ForecastViewController: UIViewController {
         windSpeed.attributedText = NSAttributedString.setupText(forField: "Wind Speed: ", usingValue: String(currentData.windSpeed).kmPHr())
     }
     
-    // show 24-Hour forecast UI
+    /**
+        show 24-Hour forecast UI
+        - Parameters:
+             - location: contains the coordinates of the location
+             - wholeDatData: contains the first day of the dailyDataForecast.
+     */
     func fillWholeDayForecast(on location: Location, using wholeDayData: DailyDataForecast) {
         wholeDayForecastStackView.isHidden = false
         wholeDayForecastStackView.changeMainViewLayoutMargin()
@@ -143,7 +160,10 @@ class ForecastViewController: UIViewController {
         wdWindSpeed.attributedText = NSAttributedString.setupText(forField: "Wind Speed: ", usingValue: String(wholeDayData.windSpeed).kmPHr())
     }
     
-    // reload table data to display forecast when 7-Day forecast is selected
+    /**
+        Since we already have a cell to handle each of the details in a particular forecast,
+        we just reload table data to display forecast when 7-Day forecast is selected.
+     */
     func fillWholeWeekForecast() {
         weeklyForecastStackView.isHidden = false
         weeklyForecastStackView.changeMainViewLayoutMargin()
@@ -151,6 +171,8 @@ class ForecastViewController: UIViewController {
     }
     
     //MARK:- API
+    /// calling the fetch in controller. We pass the forecast's location
+    /// and the closure showing how we use the data once we retrieve it from the api.
     func fetchForecast() {
         guard let forecast = forecast else { return }
         
@@ -158,7 +180,7 @@ class ForecastViewController: UIViewController {
             if let forecastResponse = forecastResponse { //inside the background thread
                     self.forecast?.completeForecast = forecastResponse
                 
-                // once api call has finished, dismiss the alert and updateUI in main thread bec we are still in the background.
+                // once api call has finished, dismiss the alert loader and updateUI in main thread bec we are still in the background.
                 // Execution happens after a second since dismiss sometimes isn't called, hence need to delay dismissal
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.dismissAlertLoader()
@@ -173,7 +195,7 @@ class ForecastViewController: UIViewController {
     }
     
     //MARK:- IBACTIONS
-    //favourites button tapped. Save the forecast as favourite in Documents Directory
+    /// favourites button tapped. Save the forecast as favourite in Documents Directory
     @IBAction @objc func favouriteTapped(_ sender: UIButton) {
         self.forecast?.toggleFavourite()
         ForecastController.shared.faveForecast = forecast
@@ -210,8 +232,10 @@ class ForecastViewController: UIViewController {
 }
 
 //MARK:- EXTENSIONS
-//extension for encapsulating the alertLoader
+/// extension for encapsulating the alertLoader
 extension ForecastViewController {
+    /// method for showing the alert loader. We have the activity indicator present inside an alert controller
+    /// by adding it in the controller's view and subsequently presenting it.
     func showAlertLoader() {
         
         let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 50, y: 23, width: 15, height: 15))
@@ -225,6 +249,7 @@ extension ForecastViewController {
 
     }
     
+    /// alertLoader dismissal
     func dismissAlertLoader() {
         //alertLoader.view.removeFromSuperview()
         alertLoader.dismiss(animated: true, completion: nil)
@@ -249,7 +274,7 @@ extension ForecastViewController: WKNavigationDelegate {
     }
 }
 
-//table functions for 7-day weekly forecast
+//extension for table functions for 7-day weekly forecast
 extension ForecastViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return forecast?.completeForecast?.daily.data.count ?? 0

@@ -8,6 +8,10 @@
 
 import Foundation
 
+/**
+ Forecast for current frequency. CodingKey is included because
+ there is a need for consistency in the naming convention.
+ */
 struct CurrentDataForecast: Codable, DataForecast {
     let time: Int32
     let summary: String

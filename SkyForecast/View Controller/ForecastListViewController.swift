@@ -44,7 +44,9 @@ class ForecastListViewController: UIViewController {
         self.forecast = Forecast(location: location, forecastFrequency: forecastFrequency, completeForecast: nil, isFavourite: false)
         self.faveForecast = ForecastController.shared.faveForecast
         
-        //pass the correct faveForecast else pass the instantiated forecast
+        /// If there is a faveForecast, then we need to check if the faveForecast is equal to the current forecast.
+        /// if it is, then we simple assign it to destination's forecast, else we pass the new instantiated forecast.
+        /// this is so because we need to check the isFavourite if it is saved as a favourite or not.
         if let faveForecast = faveForecast {
             destinationVC.forecast = faveForecast == forecast ? faveForecast : forecast
         } else {
@@ -53,7 +55,7 @@ class ForecastListViewController: UIViewController {
         
     }
     
-    //use later
+    //for future version
     @IBAction func unwindToForecast(_ segue: UIStoryboardSegue) {
         let sourceVC = segue.source as! ForecastViewController
         self.location = sourceVC.forecast?.location
@@ -73,6 +75,7 @@ extension ForecastListViewController: UITableViewDelegate, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: PropertyKeys.forecastCellIdentifier, for: indexPath)
         let frequency = FrequencyForecast.allCases[indexPath.row]
         
+        /// assign the forecast title based on the frequency of the forecast in each row
         cell.textLabel?.text = FrequencyForecast.forecastTitle(forFrequency: frequency)
         return cell
     }

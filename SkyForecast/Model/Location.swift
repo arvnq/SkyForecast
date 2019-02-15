@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Represents the location object containing the name, latitude and longitude
 struct Location: Equatable, Codable {
     let locationName: String
     let locationLatitude: Double

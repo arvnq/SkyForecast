@@ -8,7 +8,7 @@
 
 import UIKit
 
-//custom button for location list at the bottom of the page
+/// Custom button for showing the location list at the bottom of the forecast page
 class LocationListButton: UIButton {
     
     override func awakeFromNib() {
@@ -25,7 +25,7 @@ class LocationListButton: UIButton {
         setupButton()
     }
     
-    
+    /// setup the button's constraint, image and tint color
     private func setupButton() {
         self.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

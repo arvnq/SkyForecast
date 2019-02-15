@@ -17,8 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        /// modify URLCache shared instance by changing memory and disk capacity
         URLCache.shared = URLCache(memoryCapacity: 25_000_000, diskCapacity: 50_000_000, diskPath: NSTemporaryDirectory())
         
+        /// get the apiKey from bundle and assign to Api's property .key
         do {
             if let url = Bundle.main.url(forResource: "darksky.apikey", withExtension: nil) {
                 let key = try? String(contentsOf: url, encoding: .utf8).trimmingCharacters(in: .whitespacesAndNewlines)
@@ -27,21 +29,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         
-        //if forecast is not found, still return true
+        // if forecast is not found from the archive, meaning that this is the first launch then still return true
         guard let forecast = ForecastController.shared.loadForecast() else { return true }
         
-        //no need to instantiate a window as we have a navigation controller already setup in storyboard
-        //if we are going to implement this though, we need to assign a rootViewController because rootVC is nil
+        /// no need to instantiate a window as we have a navigation controller already setup in storyboard
+        /// if we are going to implement this though, we need to assign a rootViewController down below this
+        /// method because rootVC is nil
         //self.window = UIWindow(frame: UIScreen.main.bounds)
+        //let initialNaviController: UINavigationController = mainStoryboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
+        
+        /// instantiate the storyboard
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
-        
-        //let initialNaviController: UINavigationController = mainStoryboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
+        /// get the rootViewController and cast it into a NavigationController.
         let initialNaviController = self.window!.rootViewController as! UINavigationController
 
+        /// we have a forecast saved but is not a favourite
         if forecast.isFavourite {
 
-            //add all VCs in the navigation stack, and make the forecastVC the last one to make it top of stack
+            //instantiate all the vc to be stacked inside the initial navigation controller
             
             let forecastVC: UIViewController = mainStoryboard.instantiateViewController(withIdentifier: PropertyKeys.sbIdForecastVC) as! ForecastViewController
 
@@ -51,6 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             (forecastVC as! ForecastViewController).forecast = forecast
             ForecastController.shared.faveForecast = forecast
+            
+            /// add all VCs in the navigation stack, and make the forecastVC the last one to make it top of stack
             
             initialNaviController.setViewControllers([locationVC, forecastFrequencyVC, forecastVC], animated: true)
             //initialNaviController.pushViewController(forecastVC, animated: true)
@@ -90,10 +98,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 extension AppDelegate {
+    /// make a shared variable to access the app delegate from wherever within the system
     static var shared: AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
     
+    /// returns the rootViewController from the window
     var rootViewController: RootViewController {
         return window?.rootViewController as! RootViewController
     }

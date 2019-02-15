@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Some string contants used throughout the application
 struct PropertyKeys {
     
     static let baseURL = "https://api.darksky.net/forecast/"

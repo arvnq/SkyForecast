@@ -8,8 +8,11 @@
 
 import Foundation
 
-//converts epoch time to readable format
 extension Double {
+    /**
+     converts epoch time to readable format
+     - Returns: the string representation of the epoch time
+    */
     func convertEpochTime() -> String{
         let readableDate = Date(timeIntervalSince1970: self)
         

@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ this is the object structure for a normal forecast. The blueprint of the forecast being displayed on screen
+ */
 struct Forecast: Equatable, Codable {
     var location: Location
     var forecastFrequency: FrequencyForecast?
