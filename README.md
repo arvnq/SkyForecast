@@ -7,6 +7,10 @@ User can choose between different forecast (current, 24hrs, 7Days) depending on 
 User can choose any location from 20 different one to display. A favourite button is provided to load your favourite forecast
 from a particular location upon re-opening the app.
 
+### Usage
+Should you be using the project, please obtain an API Key by signing up in the DarkSky [website](https://darksky.net/dev/register).
+Once you obtain an api key, create a file darksky.apikey in the project.
+
 ### Screenshot
 
 ![SkyForecast](SkyForecast.png)
